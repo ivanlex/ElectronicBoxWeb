@@ -21,6 +21,7 @@ const publicUrlOrPath = getPublicUrlOrPath(
   process.env.PUBLIC_URL
 );
 
+process.env.BUILD_PATH =  "E:\\MyProject\\ElectronicBox\\02_project\\myweb\\src\\resources\\public";
 const buildPath = process.env.BUILD_PATH || 'build';
 
 const moduleFileExtensions = [
