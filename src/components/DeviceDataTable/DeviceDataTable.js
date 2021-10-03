@@ -29,16 +29,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+function createData(name, calories, fat, carbs, protein,protein2) {
+    return { name, calories, fat, carbs, protein,protein2 };
 }
 
 const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
+    createData('Dev001', '分闸', '正常', '有雷击', '正常', 2),
+    createData('Dev002', '分闸', '正常', '有雷击', '正常', 2),
+    createData('Dev003', '分闸', '裂化', '有雷击', '正常', 2),
+    createData('Dev004', '合闸', '裂化', '正常', '报警', 2),
+    createData('Dev005', '合闸', '裂化', '正常', '报警', 2),
 ];
 
 export default function DeviceDataTable() {
@@ -49,11 +49,12 @@ export default function DeviceDataTable() {
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                        <StyledTableCell align="right">Calories</StyledTableCell>
-                        <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                        <StyledTableCell>设备识别码</StyledTableCell>
+                        <StyledTableCell align="right">空开状态</StyledTableCell>
+                        <StyledTableCell align="right">裂化状态&nbsp;</StyledTableCell>
+                        <StyledTableCell align="right">雷击状态&nbsp;</StyledTableCell>
+                        <StyledTableCell align="right">接地状态&nbsp;</StyledTableCell>
+                        <StyledTableCell align="right">雷击次数&nbsp;(次)</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -66,6 +67,7 @@ export default function DeviceDataTable() {
                             <StyledTableCell align="right">{row.fat}</StyledTableCell>
                             <StyledTableCell align="right">{row.carbs}</StyledTableCell>
                             <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                            <StyledTableCell align="right">{row.protein2}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

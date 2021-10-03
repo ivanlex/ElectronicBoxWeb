@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
@@ -7,17 +8,25 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import {ListItem} from "@mui/material";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {Dashboard} from "../Dashboard/Dashboard";
+import {ListItem, ListItemIcon} from "@mui/material";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
+import LogoutIcon from '@mui/icons-material/Logout';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import RouterIcon from '@mui/icons-material/Router';
+import HistoryIcon from '@mui/icons-material/History';
+
+import Dashboard from "../Dashboard/Dashboard";
 import {Preferences} from "../Preferences/Preferences";
 import DeviceStatus from "../DeviceStatus/DeviceStatus";
+import "./ClippedDrawer.css"
 
 
 const drawerWidth = 240;
 
 export default function ClippedDrawer() {
     return (
+        <BrowserRouter>
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -37,19 +46,56 @@ export default function ClippedDrawer() {
             >
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
-                    <List>
-                    {/*    TODO add items*/}
+                    <List className="drawList">
+                        <Link to="/dashboard">
+                            <ListItem button key="dashboard">
+                                <ListItemIcon>
+                                    <AdminPanelSettingsIcon />
+                                </ListItemIcon>
+                                主面板
+                            </ListItem>
+                        </Link>
                     </List>
                     <Divider />
-                    <List>
-                        {/* TODO add items*/}
-                        <ListItem>123</ListItem>
-                        <ListItem>456</ListItem>
+                    <List className="drawList">
+                        <Link to="/deviceStatus">
+                            <ListItem button key="allDeviceStatus">
+                                <ListItemIcon>
+                                    <RouterIcon />
+                                </ListItemIcon>
+                                设备状态
+                            </ListItem>
+                        </Link>
+                        <Link to="/dashboard">
+                            <ListItem button key="historyDeviceStatus">
+                                <ListItemIcon>
+                                    <HistoryIcon />
+                                </ListItemIcon>
+                                设备历史查询
+                            </ListItem>
+                        </Link>
+                    </List>
+                    <Divider />
+                    <List className="drawList">
+                        <Link  to="/dashboard">
+                            <ListItem button key="userMaintain">
+                                <ListItemIcon>
+                                    <ContactMailIcon />
+                                </ListItemIcon>
+                                用户管理
+                            </ListItem>
+                        </Link>
+                        <ListItem button key="logout">
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            退出
+                        </ListItem>
                     </List>
                 </Box>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <BrowserRouter>
+            <Box className="contentPlaceHolder" component="main" sx={{ flexGrow: 1, p: 3 }}>
+
                     <Switch>
                         <Route path="/deviceStatus">
                             <DeviceStatus />
@@ -60,9 +106,13 @@ export default function ClippedDrawer() {
                         <Route path="/preferences">
                             <Preferences />
                         </Route>
+                        <Route path="*">
+                            <Dashboard />
+                        </Route>
                     </Switch>
-                </BrowserRouter>
+
             </Box>
         </Box>
+        </BrowserRouter>
     );
 }

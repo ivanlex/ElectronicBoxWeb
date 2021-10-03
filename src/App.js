@@ -15,7 +15,7 @@ function App() {
 
     return (
         <div className="wrapper">
-            <ClippedDrawer/>
+            <ClippedDrawer />
         </div>
     );
 }
