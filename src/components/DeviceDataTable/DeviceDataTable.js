@@ -29,50 +29,60 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein,protein2) {
-    return { name, calories, fat, carbs, protein,protein2 };
-}
+// function createData(mcuId, openStatus, crackStatus, groundedStatus, lightningStatus,lightningCount) {
+//     return { mcuId, openStatus, crackStatus, groundedStatus, lightningStatus,lightningCount };
+// }
 
-const rows = [
-    createData('Dev001', '分闸', '正常', '有雷击', '正常', 2),
-    createData('Dev002', '分闸', '正常', '有雷击', '正常', 2),
-    createData('Dev003', '分闸', '裂化', '有雷击', '正常', 2),
-    createData('Dev004', '合闸', '裂化', '正常', '报警', 2),
-    createData('Dev005', '合闸', '裂化', '正常', '报警', 2),
-];
+// const rows = [
+//     createData('Dev001', '分闸', '正常', '有雷击', '正常', 2),
+//     createData('Dev002', '分闸', '正常', '有雷击', '正常', 2),
+//     createData('Dev003', '分闸', '裂化', '有雷击', '正常', 2),
+//     createData('Dev004', '合闸', '裂化', '正常', '报警', 2),
+//     createData('Dev005', '合闸', '裂化', '正常', '报警', 2),
+// ];
 
-export default function DeviceDataTable() {
-    return (
-        <div className="DeviceDataTable">
-            <h2>设备状态一览表</h2>
-            <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>设备识别码</StyledTableCell>
-                        <StyledTableCell align="right">空开状态</StyledTableCell>
-                        <StyledTableCell align="right">裂化状态&nbsp;</StyledTableCell>
-                        <StyledTableCell align="right">雷击状态&nbsp;</StyledTableCell>
-                        <StyledTableCell align="right">接地状态&nbsp;</StyledTableCell>
-                        <StyledTableCell align="right">雷击次数&nbsp;(次)</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                            <StyledTableCell align="right">{row.protein2}</StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer></div>
+export class DeviceDataTable extends React.Component{
 
-    );
+    constructor() {
+        super();
+    }
+
+
+
+    render() {
+        return (
+            <div>
+                <div className="DeviceDataTable">
+                    <h2>设备状态一览表</h2>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>设备识别码</StyledTableCell>
+                                    <StyledTableCell align="right">空开状态</StyledTableCell>
+                                    <StyledTableCell align="right">裂化状态&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="right">雷击状态&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="right">接地状态&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="right">雷击次数&nbsp;(次)</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.props.rows.map((row) => (
+                                    <StyledTableRow key={row.mcuId}>
+                                        <StyledTableCell component="th" scope="row">
+                                            {row.mcuId}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{row.openStatus == 0 ? "分闸" : "合闸"}</StyledTableCell>
+                                        <StyledTableCell align="right">{row.crackStatus == 0 ? "正常" : "裂化"}</StyledTableCell>
+                                        <StyledTableCell align="right">{row.groundedStatus == 0 ? "正常" : "报警"}</StyledTableCell>
+                                        <StyledTableCell align="right">{row.lightningStatus  == 0 ? "正常" : "有雷击"}</StyledTableCell>
+                                        <StyledTableCell align="right">{row.lightningCount}</StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer></div>
+            </div>
+        );
+    }
 }

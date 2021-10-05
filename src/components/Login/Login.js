@@ -7,7 +7,6 @@ async function loginUser(credentials) {
     return fetch('loginVerify',
         {
         method: 'POST',
-        mode:"no-cors",
         headers: {
             'Content-Type': 'application/json'
         },
@@ -29,7 +28,7 @@ export default function Login({ setToken }) {
             password
         });
 
-        if(token === undefined)
+        if(token === undefined || token.length === 0)
         {
             setOpenDialog(true);
         }

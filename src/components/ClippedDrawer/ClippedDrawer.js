@@ -18,7 +18,7 @@ import HistoryIcon from '@mui/icons-material/History';
 
 import Dashboard from "../Dashboard/Dashboard";
 import {Preferences} from "../Preferences/Preferences";
-import DeviceStatus from "../DeviceStatus/DeviceStatus";
+import {DeviceStatus} from "../DeviceStatus/DeviceStatus";
 import "./ClippedDrawer.css"
 
 
