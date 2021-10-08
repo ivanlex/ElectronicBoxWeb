@@ -19,6 +19,9 @@ import HistoryIcon from '@mui/icons-material/History';
 import Dashboard from "../Dashboard/Dashboard";
 import {Preferences} from "../Preferences/Preferences";
 import {DeviceStatus} from "../DeviceStatus/DeviceStatus";
+import {DeviceHistory} from "../DeviceHistory/DeviceHistory";
+import {DeviceMaintain} from "../DeviceMaintain/DeviceMaintain";
+
 import "./ClippedDrawer.css"
 
 
@@ -66,7 +69,7 @@ export default function ClippedDrawer() {
                                 设备状态
                             </ListItem>
                         </Link>
-                        <Link to="/dashboard">
+                        <Link to="/deviceHistory">
                             <ListItem button key="historyDeviceStatus">
                                 <ListItemIcon>
                                     <HistoryIcon />
@@ -77,12 +80,12 @@ export default function ClippedDrawer() {
                     </List>
                     <Divider />
                     <List className="drawList">
-                        <Link  to="/dashboard">
+                        <Link  to="/deviceMaintain">
                             <ListItem button key="userMaintain">
                                 <ListItemIcon>
                                     <ContactMailIcon />
                                 </ListItemIcon>
-                                用户管理
+                                设备管理
                             </ListItem>
                         </Link>
                         <ListItem button key="logout">
@@ -95,7 +98,6 @@ export default function ClippedDrawer() {
                 </Box>
             </Drawer>
             <Box className="contentPlaceHolder" component="main" sx={{ flexGrow: 1, p: 3 }}>
-
                     <Switch>
                         <Route path="/deviceStatus">
                             <DeviceStatus />
@@ -105,6 +107,12 @@ export default function ClippedDrawer() {
                         </Route>
                         <Route path="/preferences">
                             <Preferences />
+                        </Route>
+                        <Route path="/deviceHistory">
+                            <DeviceHistory />
+                        </Route>
+                        <Route path="/deviceMaintain">
+                            <DeviceMaintain />
                         </Route>
                         <Route path="*">
                             <Dashboard />

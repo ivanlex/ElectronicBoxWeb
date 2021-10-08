@@ -1,0 +1,9 @@
+.queryLine{
+    padding: 10px;
+    display: inline-block;
+}
+
+.queryLine > Button{
+    margin-top: 8px;
+    margin-left: 10px;
+}

@@ -1,0 +1,6 @@
+.dashBoardLine1 {
+    display: inline-flex;
+    text-align: center;
+    margin:0 auto;
+    gap: 30px;
+}

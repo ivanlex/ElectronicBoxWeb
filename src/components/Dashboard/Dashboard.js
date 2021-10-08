@@ -4,6 +4,8 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import AltRouteIcon from '@mui/icons-material/AltRoute';
 import {Grid} from "@mui/material";
+import DashPage from "../DashPage/DashPage";
+import "./DashBoard.css"
 
 export default function Dashboard(){
     const Item = styled(Paper)(({ theme }) => ({
@@ -13,21 +15,13 @@ export default function Dashboard(){
         color: theme.palette.text.secondary,
     }));
 
-        return (
-            <Grid container spacing={3}>
-                <Grid item xs={6} md={2}>
+    let index = 0;
 
-                    <Item>空开异常</Item>
-                </Grid>
-                <Grid item xs={6} md={2}>
-                    <Item>裂化异常</Item>
-                </Grid>
-                <Grid item xs={6} md={2}>
-                    <Item>雷击异常</Item>
-                </Grid>
-                <Grid item xs={6} md={5}>
-                    <Item>接地异常</Item>
-                </Grid>
-            </Grid>
+        return (
+            <div className="dashBoardLine1">
+                <DashPage index={index++} title="安装设备数量" content="1"/>
+                <DashPage index={index++} title="在线设备" content="1"/>
+                <DashPage index={index++} title="离线设备" content="1"/>
+            </div>
         );
 }
