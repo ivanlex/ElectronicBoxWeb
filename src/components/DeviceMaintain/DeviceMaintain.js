@@ -1,6 +1,5 @@
 import React from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
-import {DeviceHistoryTable} from "../DeviceHistoryTable/DeviceHistoryTable";
 import {DeviceMaintainTable} from "../DeviceMaintainTable/DeviceMaintainTable";
 
 export class DeviceMaintain extends React.Component{
@@ -17,6 +16,30 @@ export class DeviceMaintain extends React.Component{
         this.handleAddressInput = this.handleAddressInput.bind(this);
         this.handleAddDevice = this.handleAddDevice.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleRefresh = this.handleRefresh.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    handleRefresh(){
+        fetch('getAllMcu',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(
+                data=>{
+                    data.json().then(function(result) {
+                        // here you can use the result of promiseB
+                        console.log(result);
+                        self.setState({
+                            allDevice : result
+                        })
+                    })
+                }
+            )
+            .catch(data => console.log("failed"));
     }
 
     handleAddDevice(){
@@ -46,9 +69,9 @@ export class DeviceMaintain extends React.Component{
                         data.json().then(function(result) {
                             // here you can use the result of promiseB
                             console.log(result);
-                            self.setState({
-                                allDevice : result
-                            })
+                            if(result.actionComplete && !result.duiplicateMCU){
+                                self.handleRefresh();
+                            }
                         })
                     }
                 )
@@ -75,6 +98,34 @@ export class DeviceMaintain extends React.Component{
         })
     }
 
+    handleDelete(mcuId){
+        const self = this;
+        console.log("Delete device deviceId:" + mcuId);
+
+        fetch('mcuRemove',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    deviceId : this.state.deviceId
+                })
+            })
+            .then(
+                data=>{
+                    data.json().then(function(result) {
+                        // here you can use the result of promiseB
+                        console.log(result);
+                        if(result.actionComplete){
+                            self.handleRefresh();
+                        }
+                    })
+                }
+            )
+            .catch(data => console.log("failed"));
+    }
+
     render() {
         return (
             <div>
@@ -85,7 +136,7 @@ export class DeviceMaintain extends React.Component{
                 </div>
 
                 <div>
-                    <DeviceMaintainTable rows={this.state.allDevice} />
+                    <DeviceMaintainTable handleDelete={this.state.handleDelete} rows={this.state.allDevice} />
                 </div>
 
 
