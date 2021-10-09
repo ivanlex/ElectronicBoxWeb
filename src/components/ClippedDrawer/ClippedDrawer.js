@@ -23,11 +23,17 @@ import {DeviceHistory} from "../DeviceHistory/DeviceHistory";
 import {DeviceMaintain} from "../DeviceMaintain/DeviceMaintain";
 
 import "./ClippedDrawer.css"
+import Login from "../Login/Login";
 
 
 const drawerWidth = 240;
 
-export default function ClippedDrawer() {
+export default function ClippedDrawer({setToken}) {
+    const handleQuit = () =>{
+        setToken("");
+    }
+
+
     return (
         <BrowserRouter>
         <Box sx={{ display: 'flex' }}>
@@ -88,11 +94,13 @@ export default function ClippedDrawer() {
                                 设备管理
                             </ListItem>
                         </Link>
-                        <ListItem button key="logout">
-                            <ListItemIcon>
-                                <LogoutIcon />
-                            </ListItemIcon>
-                            退出
+                        <ListItem button key="logout" onClick={handleQuit}>
+                            <Link  to="/quit">
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                退出
+                            </Link>
                         </ListItem>
                     </List>
                 </Box>

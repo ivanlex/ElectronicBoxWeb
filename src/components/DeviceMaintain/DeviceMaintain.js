@@ -9,7 +9,9 @@ export class DeviceMaintain extends React.Component{
             openDialog:false,
             deviceId : "",
             deviceAddress : "",
-            allDevice:[]
+            allDevice:[],
+            errorTitle:"",
+            errorContent:""
         };
 
         this.handleDeviceIdInput = this.handleDeviceIdInput.bind(this);
@@ -78,6 +80,15 @@ export class DeviceMaintain extends React.Component{
                             if(result.actionComplete && !result.duiplicateMCU){
                                 self.handleRefresh();
                             }
+                            else
+                            {
+                                self.setState({
+                                    openDialog:true,
+                                    errorTitle:"添加失败",
+                                    errorContent:"已存在相同的设备识别码，请更换后重试",
+                                })
+                            }
+
                         })
                     }
                 )
@@ -127,6 +138,14 @@ export class DeviceMaintain extends React.Component{
                         if(result.actionComplete){
                             self.handleRefresh();
                         }
+                        else
+                        {
+                           self.setState({
+                               openDialog:true,
+                               errorTitle:"删除失败",
+                               errorContent:"无法删除该设备，请重试",
+                           })
+                        }
                     })
                 }
             )
@@ -154,11 +173,11 @@ export class DeviceMaintain extends React.Component{
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">
-                        信息填写不完整
+                        {this.state.errorTitle}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            请将设备ID，安装地址填写完整。
+                            {this.state.errorContent}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
