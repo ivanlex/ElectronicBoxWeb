@@ -1,6 +1,6 @@
 import React from "react";
 import {DeviceHistoryTable} from "../DeviceHistoryTable/DeviceHistoryTable";
-import {Button, TextField} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import "./DeviceHistory.css"
 
 export class DeviceHistory extends React.Component{
@@ -58,6 +58,8 @@ export class DeviceHistory extends React.Component{
     }
 
 
+
+
     render() {
         return (
             <div>
@@ -69,6 +71,7 @@ export class DeviceHistory extends React.Component{
                 <div>
                     <DeviceHistoryTable rows={this.state.deviceHistory} />
                 </div>
+
             </div>
         );
     }

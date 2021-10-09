@@ -60,7 +60,7 @@ export class DeviceMaintainTable extends React.Component{
                                 <TableRow>
                                     <StyledTableCell>设备识别码</StyledTableCell>
                                     <StyledTableCell align="right">安装地址&nbsp;</StyledTableCell>
-                                    <StyledTableCell align="right">更新日期&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="right">添加日期&nbsp;</StyledTableCell>
                                     <StyledTableCell align="right"/>
                                 </TableRow>
                             </TableHead>

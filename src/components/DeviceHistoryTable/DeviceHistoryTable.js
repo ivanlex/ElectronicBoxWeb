@@ -28,18 +28,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-// function createData(mcuId, openStatus, crackStatus, groundedStatus, lightningStatus,lightningCount) {
-//     return { mcuId, openStatus, crackStatus, groundedStatus, lightningStatus,lightningCount };
-// }
-
-// const rows = [
-//     createData('Dev001', '分闸', '正常', '有雷击', '正常', 2),
-//     createData('Dev002', '分闸', '正常', '有雷击', '正常', 2),
-//     createData('Dev003', '分闸', '裂化', '有雷击', '正常', 2),
-//     createData('Dev004', '合闸', '裂化', '正常', '报警', 2),
-//     createData('Dev005', '合闸', '裂化', '正常', '报警', 2),
-// ];
-
 export class DeviceHistoryTable extends React.Component{
 
     constructor() {
