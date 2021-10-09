@@ -20,7 +20,13 @@ export class DeviceMaintain extends React.Component{
         this.handleDelete = this.handleDelete.bind(this);
     }
 
+    componentDidMount() {
+        this.handleRefresh();
+    }
+
     handleRefresh(){
+        const self = this;
+
         fetch('getAllMcu',
             {
                 method: 'POST',
@@ -101,6 +107,7 @@ export class DeviceMaintain extends React.Component{
     handleDelete(mcuId){
         const self = this;
         console.log("Delete device deviceId:" + mcuId);
+        const deleteId = mcuId;
 
         fetch('mcuRemove',
             {
@@ -109,7 +116,7 @@ export class DeviceMaintain extends React.Component{
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    deviceId : this.state.deviceId
+                    deviceId : mcuId,
                 })
             })
             .then(
@@ -136,7 +143,7 @@ export class DeviceMaintain extends React.Component{
                 </div>
 
                 <div>
-                    <DeviceMaintainTable handleDelete={this.state.handleDelete} rows={this.state.allDevice} />
+                    <DeviceMaintainTable handleDelete={this.handleDelete} rows={this.state.allDevice} />
                 </div>
 
 
