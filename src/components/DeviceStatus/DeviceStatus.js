@@ -53,7 +53,7 @@ export class DeviceStatus extends React.Component{
                     }
                 )
                 .catch(data => console.log("failed"));
-        },3000)})
+        },2000)})
     }
 
     componentWillUnmount()

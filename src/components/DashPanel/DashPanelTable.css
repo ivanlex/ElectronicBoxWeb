@@ -1,0 +1,12 @@
+.DashPanelTable{
+    width: auto;
+}
+
+.DashPanelTable > tr{
+    align-content: center;
+}
+
+.DashPanelTable > tr > td{
+    text-align:center;
+    vertical-align:top;
+}

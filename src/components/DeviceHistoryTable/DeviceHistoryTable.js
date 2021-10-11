@@ -44,6 +44,7 @@ export class DeviceHistoryTable extends React.Component{
                         <Table sx={{ minWidth: 700 }} aria-label="customized table">
                             <TableHead>
                                 <TableRow>
+                                    <StyledTableCell align="left">序号</StyledTableCell>
                                     <StyledTableCell>设备识别码</StyledTableCell>
                                     <StyledTableCell align="right">空开状态</StyledTableCell>
                                     <StyledTableCell align="right">裂化状态&nbsp;</StyledTableCell>
@@ -54,12 +55,13 @@ export class DeviceHistoryTable extends React.Component{
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.props.rows.map((row) => (
+                                {this.props.rows.map((row,index) => (
                                     <StyledTableRow key={row.mcuId}>
+                                        <StyledTableCell align="left">{index+1}</StyledTableCell>
                                         <StyledTableCell component="th" scope="row">
                                             {row.mcuId}
                                         </StyledTableCell>
-                                        <StyledTableCell align="right">{row.openStatus == 0 ? "分闸" : "合闸"}</StyledTableCell>
+                                        <StyledTableCell align="right">{row.openStatus == 1 ? "分闸" : "合闸"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.crackStatus == 0 ? "正常" : "裂化"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.lightningStatus == 0 ? "正常" : "有雷击"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.groundedStatus  == 0 ? "正常" : "报警"}</StyledTableCell>

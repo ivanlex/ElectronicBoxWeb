@@ -15,6 +15,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import RouterIcon from '@mui/icons-material/Router';
 import HistoryIcon from '@mui/icons-material/History';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 
 import Dashboard from "../Dashboard/Dashboard";
 import {Preferences} from "../Preferences/Preferences";
@@ -24,6 +25,7 @@ import {DeviceMaintain} from "../DeviceMaintain/DeviceMaintain";
 
 import "./ClippedDrawer.css"
 import Login from "../Login/Login";
+import UserMaintain from "../UserMaintain/UserMaintain";
 
 
 const drawerWidth = 240;
@@ -80,18 +82,26 @@ export default function ClippedDrawer({setToken}) {
                                 <ListItemIcon>
                                     <HistoryIcon />
                                 </ListItemIcon>
-                                设备历史查询
+                                历史查询
                             </ListItem>
                         </Link>
                     </List>
                     <Divider />
                     <List className="drawList">
                         <Link  to="/deviceMaintain">
-                            <ListItem button key="userMaintain">
+                            <ListItem button key="deviceMaintain">
                                 <ListItemIcon>
                                     <ContactMailIcon />
                                 </ListItemIcon>
                                 设备管理
+                            </ListItem>
+                        </Link>
+                        <Link  to="/userMaintain">
+                            <ListItem button key="userMaintain">
+                                <ListItemIcon>
+                                    <AccessibilityIcon />
+                                </ListItemIcon>
+                                用户管理
                             </ListItem>
                         </Link>
                         <ListItem button key="logout" onClick={handleQuit}>
@@ -121,6 +131,9 @@ export default function ClippedDrawer({setToken}) {
                         </Route>
                         <Route path="/deviceMaintain">
                             <DeviceMaintain />
+                        </Route>
+                        <Route path="/userMaintain">
+                            <UserMaintain />
                         </Route>
                         <Route path="*">
                             <Dashboard />

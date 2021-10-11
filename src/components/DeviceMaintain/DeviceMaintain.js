@@ -9,6 +9,8 @@ export class DeviceMaintain extends React.Component{
             openDialog:false,
             deviceId : "",
             deviceAddress : "",
+            desc : "",
+            group : "",
             allDevice:[],
             errorTitle:"",
             errorContent:""
@@ -16,6 +18,8 @@ export class DeviceMaintain extends React.Component{
 
         this.handleDeviceIdInput = this.handleDeviceIdInput.bind(this);
         this.handleAddressInput = this.handleAddressInput.bind(this);
+        this.handleDescInput = this.handleDescInput.bind(this);
+        this.handleGroupInput = this.handleGroupInput.bind(this);
         this.handleAddDevice = this.handleAddDevice.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
@@ -69,7 +73,9 @@ export class DeviceMaintain extends React.Component{
                     },
                     body: JSON.stringify({
                         deviceId : this.state.deviceId,
-                        deviceAddress : this.state.deviceAddress
+                        deviceAddress : this.state.deviceAddress,
+                        desc : this.state.desc,
+                        group : this.state.group
                     })
                 })
                 .then(
@@ -100,6 +106,18 @@ export class DeviceMaintain extends React.Component{
         this.setState({
             deviceId : event.target.value
         });
+    }
+
+    handleDescInput(event){
+        this.setState({
+            desc : event.target.value
+        })
+    }
+
+    handleGroupInput(event){
+        this.setState({
+            group : event.target.value
+        })
     }
 
     handleAddressInput(event)
@@ -157,6 +175,8 @@ export class DeviceMaintain extends React.Component{
             <div>
                 <div className="queryLine">
                     <TextField id="outlined-basic" label="设备识别码" variant="outlined" onChange={this.handleDeviceIdInput} />
+                    <TextField id="outlined-basic" label="设备描述" variant="outlined" onChange={this.handleDescInput} />
+                    <TextField id="outlined-basic" label="分组" variant="outlined" onChange={this.handleGroupInput} />
                     <TextField id="outlined-basic2" label="安装位置" variant="outlined" onChange={this.handleAddressInput} />
                     <Button size="medium" variant="contained" onClick={this.handleAddDevice}>新增</Button>
                 </div>
