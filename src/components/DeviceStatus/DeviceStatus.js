@@ -39,7 +39,6 @@ export class DeviceStatus extends React.Component{
                 })
                 .then(
                     data=>{
-
                         data.json().then(function(result) {
                             // here you can use the result of promiseB
                             console.log(result);
@@ -47,9 +46,6 @@ export class DeviceStatus extends React.Component{
                                  deviceStatus : result
                             })
                         })
-
-
-
                     }
                 )
                 .catch(data => console.log("failed"));

@@ -61,7 +61,7 @@ export class DeviceHistoryTable extends React.Component{
                                         <StyledTableCell component="th" scope="row">
                                             {row.mcuId}
                                         </StyledTableCell>
-                                        <StyledTableCell align="right">{row.openStatus == 1 ? "分闸" : "合闸"}</StyledTableCell>
+                                        <StyledTableCell align="right">{row.openStatus == 0 ? "合闸" : "分闸"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.crackStatus == 0 ? "正常" : "裂化"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.lightningStatus == 0 ? "正常" : "有雷击"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.groundedStatus  == 0 ? "正常" : "报警"}</StyledTableCell>

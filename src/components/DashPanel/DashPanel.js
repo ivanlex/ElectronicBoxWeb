@@ -26,7 +26,7 @@ export class DashPanel extends React.Component{
                                 <td>
                                     <p>设备识别码 {item.mcuId}</p>
                                     <p>工作状态 <CircleIcon color={item.isOnline == 1 ? "success" : "error"} /></p>
-                                    <p>空开状态 <CircleIcon color={item.openStatus == 1 && item.isOnline == 1 ? "success" : "error"} /></p>
+                                    <p>空开状态 <CircleIcon color={item.openStatus == 0 && item.isOnline == 1 ? "success" : "error"} /></p>
                                     <p>裂化状态 <CircleIcon color={item.crackStatus == 0 && item.isOnline == 1 ? "success" : "error"} /></p>
                                     <p>雷击状态 <CircleIcon color={item.lightningStatus == 0 && item.isOnline == 1 ? "success" : "error"} /></p>
                                     <p>接地状态 <CircleIcon color={item.groundedStatus == 0 && item.isOnline == 1 ? "success" : "error"} /></p>

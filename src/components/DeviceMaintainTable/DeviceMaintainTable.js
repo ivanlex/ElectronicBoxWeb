@@ -46,10 +46,10 @@ export class DeviceMaintainTable extends React.Component{
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell>设备识别码</StyledTableCell>
-                                    <StyledTableCell>设备描述&nbsp;</StyledTableCell>
-                                    <StyledTableCell>分组&nbsp;</StyledTableCell>
-                                    <StyledTableCell align="right">安装地址&nbsp;</StyledTableCell>
-                                    <StyledTableCell align="right">添加日期&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="center">设备描述&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="center">分组&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="center">安装地址&nbsp;</StyledTableCell>
+                                    <StyledTableCell align="center">添加日期&nbsp;</StyledTableCell>
                                     <StyledTableCell align="right"/>
                                 </TableRow>
                             </TableHead>
@@ -59,10 +59,10 @@ export class DeviceMaintainTable extends React.Component{
                                         <StyledTableCell component="th" scope="row">
                                             {row.mcuId}
                                         </StyledTableCell>
-                                        <StyledTableCell align="right">{row.desc}</StyledTableCell>
-                                        <StyledTableCell align="right">{row.group}</StyledTableCell>
-                                        <StyledTableCell align="right">{row.address}</StyledTableCell>
-                                        <StyledTableCell align="right">{row.installDate}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.desc}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.group}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.address}</StyledTableCell>
+                                        <StyledTableCell align="center">{row.installDate}</StyledTableCell>
                                         <StyledTableCell align="right">
                                             <Button size="small" variant="contained" onClick={() => this.props.handleDelete(row.mcuId)} startIcon={<HighlightOffIcon />}>删除</Button>
                                         </StyledTableCell>
