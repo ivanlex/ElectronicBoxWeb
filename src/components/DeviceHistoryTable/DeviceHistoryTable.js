@@ -32,8 +32,17 @@ export class DeviceHistoryTable extends React.Component{
 
     constructor() {
         super();
+        this.getTime = this.getTime.bind(this);
     }
 
+
+    getTime(date){
+        var now = new Date(date),
+            y = now.getFullYear(),
+            m = now.getMonth() + 1,
+            d = now.getDate();
+        return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
+    }
 
 
     render() {
@@ -66,7 +75,7 @@ export class DeviceHistoryTable extends React.Component{
                                         <StyledTableCell align="right">{row.lightningStatus == 0 ? "正常" : "有雷击"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.groundedStatus  == 0 ? "正常" : "报警"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.lightningCount}</StyledTableCell>
-                                        <StyledTableCell align="right">{row.updatedTime}</StyledTableCell>
+                                        <StyledTableCell align="right">{this.getTime(row.updatedTime)}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>

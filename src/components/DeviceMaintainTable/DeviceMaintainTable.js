@@ -34,7 +34,16 @@ export class DeviceMaintainTable extends React.Component{
 
     constructor(props) {
         super(props);
+        this.getTime = this.getTime.bind(this);
+    }
 
+
+    getTime(date){
+            var now = new Date(date),
+                y = now.getFullYear(),
+                m = now.getMonth() + 1,
+                d = now.getDate();
+            return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
     }
 
     render() {
@@ -62,7 +71,7 @@ export class DeviceMaintainTable extends React.Component{
                                         <StyledTableCell align="center">{row.desc}</StyledTableCell>
                                         <StyledTableCell align="center">{row.group}</StyledTableCell>
                                         <StyledTableCell align="center">{row.address}</StyledTableCell>
-                                        <StyledTableCell align="center">{row.installDate}</StyledTableCell>
+                                        <StyledTableCell align="center">{this.getTime(row.installDate)}</StyledTableCell>
                                         <StyledTableCell align="right">
                                             <Button size="small" variant="contained" onClick={() => this.props.handleDelete(row.mcuId)} startIcon={<HighlightOffIcon />}>删除</Button>
                                         </StyledTableCell>
