@@ -10,6 +10,9 @@ import Paper from '@mui/material/Paper';
 import "./DeviceDataTable.css"
 import * as PropTypes from "prop-types";
 import CircleIcon from '@mui/icons-material/Circle';
+import AvTimerIcon from '@mui/icons-material/AvTimer';
+import {Button} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -61,12 +64,14 @@ export class DeviceDataTable extends React.Component{
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell>设备识别码</StyledTableCell>
+                                    <StyledTableCell align="right">设备描述</StyledTableCell>
                                     <StyledTableCell align="right">在线状态</StyledTableCell>
                                     <StyledTableCell align="right">空开状态</StyledTableCell>
                                     <StyledTableCell align="right">裂化状态&nbsp;</StyledTableCell>
                                     <StyledTableCell align="right">雷击状态&nbsp;</StyledTableCell>
                                     <StyledTableCell align="right">接地状态&nbsp;</StyledTableCell>
                                     <StyledTableCell align="right">雷击次数&nbsp;(次)</StyledTableCell>
+                                    <StyledTableCell align="right" />
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -75,12 +80,18 @@ export class DeviceDataTable extends React.Component{
                                         <StyledTableCell component="th" scope="row">
                                             {row.mcuId}
                                         </StyledTableCell>
+                                        <StyledTableCell align="right">{row.description}</StyledTableCell>
                                         <StyledTableCell align="right"><CircleIcon color={row.isOnline == 1 ? "success" : "error"}/>{row.isOnline == 1 ? "在线" : "离线"}</StyledTableCell>
                                         <StyledTableCell align="right"><CircleIcon color={row.isOnline == 1 && row.openStatus == 0 ? "success" : "error"}/>{row.openStatus == 0 ? "合闸" : "分闸"}</StyledTableCell>
                                         <StyledTableCell align="right"><CircleIcon color={row.isOnline == 1 && row.crackStatus == 0 ? "success" : "error"}/>{row.crackStatus == 0 ? "正常" : "裂化"}</StyledTableCell>
                                         <StyledTableCell align="right"><CircleIcon color={row.isOnline == 1 && row.lightningStatus == 0 ? "success" : "error"}/>{row.lightningStatus == 0 ? "正常" : "有雷击"}</StyledTableCell>
                                         <StyledTableCell align="right"><CircleIcon color={row.isOnline == 1 && row.groundedStatus == 0 ? "success" : "error"}/>{row.groundedStatus  == 0 ? "正常" : "报警"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.lightningCount}</StyledTableCell>
+                                        <StyledTableCell align="right">
+                                            <Link to={{pathname:"/deviceHistory/" +row.mcuId}}>
+                                                <Button size="small" variant="contained" startIcon={<AvTimerIcon />}>历史数据</Button>
+                                            </Link>
+                                        </StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                             </TableBody>

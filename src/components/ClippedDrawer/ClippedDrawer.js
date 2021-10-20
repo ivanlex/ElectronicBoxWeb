@@ -117,27 +117,14 @@ export default function ClippedDrawer({setToken}) {
             </Drawer>
             <Box className="contentPlaceHolder" component="main" sx={{ flexGrow: 1, p: 3 }}>
                     <Switch>
-                        <Route path="/deviceStatus">
-                            <DeviceStatus />
-                        </Route>
-                        <Route path="/dashboard">
-                            <Dashboard />
-                        </Route>
-                        <Route path="/preferences">
-                            <Preferences />
-                        </Route>
-                        <Route path="/deviceHistory">
-                            <DeviceHistory />
-                        </Route>
-                        <Route path="/deviceMaintain">
-                            <DeviceMaintain />
-                        </Route>
-                        <Route path="/userMaintain">
-                            <UserMaintain />
-                        </Route>
-                        <Route path="*">
-                            <Dashboard />
-                        </Route>
+                        <Route path="/deviceStatus" component={DeviceStatus} />
+                        <Route path="/dashboard" component={Dashboard} />
+                        <Route path="/preferences" component={Preferences} />
+                        <Route path="/deviceHistory/:mcuId" component={DeviceHistory} />
+                        <Route path="/deviceHistory" component={DeviceHistory} />
+                        <Route path="/deviceMaintain" component={DeviceMaintain}/>
+                        <Route path="/userMaintain" component={UserMaintain} />
+                        <Route path="*" component={Dashboard} />
                     </Switch>
 
             </Box>

@@ -8,7 +8,7 @@ export class DeviceHistory extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            queryDeviceId:"",
+            queryDeviceId:this.props.match.params.mcuId,
             deviceHistory:[]
         };
 
@@ -18,10 +18,13 @@ export class DeviceHistory extends React.Component{
 
     handleQuery(){
             const self = this;
+            this.setState({
+                deviceHistory:[]
+            })
 
             console.log("query device history " + this.state.queryDeviceId);
 
-            fetch('mcuHistory',
+            fetch('/mcuHistory',
                 {
                     method: 'POST',
                     headers: {
@@ -57,14 +60,19 @@ export class DeviceHistory extends React.Component{
         console.log(this.state.queryDeviceId);
     }
 
-
+    componentDidMount() {
+        if(this.state.queryDeviceId != "")
+        {
+            this.handleQuery()
+        }
+    }
 
 
     render() {
         return (
             <div>
                 <div className="queryLine">
-                    <TextField id="deviceId" label="设备识别码" variant="outlined" onChange={this.updateInput}  />
+                    <TextField id="deviceId" value={this.state.queryDeviceId} label="设备识别码" variant="outlined" onChange={this.updateInput}  />
                     <Button size="medium" variant="contained" onClick={this.handleQuery}>查询</Button>
                 </div>
 
