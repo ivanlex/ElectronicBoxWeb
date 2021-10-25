@@ -183,13 +183,25 @@ export class DeviceMaintain extends React.Component{
     }
 
     handleBaiduAutoComplete(event){
-        console.log(event);
-        this.setState(
-            {
-                longitude : event.latlng.lng,
-                latitude : event.latlng.lat,
-            }
-        )
+        const BMapGL = window.BMapGL;
+        const myGeo = new BMapGL.Geocoder();
+        myGeo.getPoint(this.state.deviceAddress,function (point)
+        {
+           if(point)
+           {
+               console.log(point);
+           }else
+           {
+               console.log('解析失败');
+           }
+        });
+        // console.log(event);
+        // this.setState(
+        //     {
+        //         longitude : event.latlng.lng,
+        //         latitude : event.latlng.lat,
+        //     }
+        // )
     }
 
     render() {
