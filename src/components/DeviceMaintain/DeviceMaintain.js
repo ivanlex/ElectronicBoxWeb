@@ -1,6 +1,8 @@
 import React from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import {DeviceMaintainTable} from "../DeviceMaintainTable/DeviceMaintainTable";
+import {MyMap} from "../MyMap/MyMap";
+import AutoComplete from 'react-bmapgl/Services/AutoComplete'
 
 export class DeviceMaintain extends React.Component{
     constructor(props) {
@@ -11,6 +13,8 @@ export class DeviceMaintain extends React.Component{
             deviceAddress : "",
             desc : "",
             group : "",
+            longitude : 0,
+            latitude : 0,
             allDevice:[],
             errorTitle:"",
             errorContent:""
@@ -24,6 +28,8 @@ export class DeviceMaintain extends React.Component{
         this.handleClose = this.handleClose.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleUpdatelatlng = this.handleUpdatelatlng.bind(this);
+        this.handleBaiduAutoComplete = this.handleBaiduAutoComplete.bind(this);
     }
 
     componentDidMount() {
@@ -75,7 +81,9 @@ export class DeviceMaintain extends React.Component{
                         deviceId : this.state.deviceId,
                         deviceAddress : this.state.deviceAddress,
                         desc : this.state.desc,
-                        group : this.state.group
+                        group : this.state.group,
+                        longitude : this.state.longitude,
+                        latitude : this.state.latitude,
                     })
                 })
                 .then(
@@ -133,6 +141,10 @@ export class DeviceMaintain extends React.Component{
         })
     }
 
+    handleUpdatelatlng(latlng){
+        console.log(latlng);
+    }
+
     handleDelete(mcuId){
         const self = this;
         console.log("Delete device deviceId:" + mcuId);
@@ -170,6 +182,16 @@ export class DeviceMaintain extends React.Component{
             .catch(data => console.log("failed"));
     }
 
+    handleBaiduAutoComplete(event){
+        console.log(event);
+        this.setState(
+            {
+                longitude : event.latlng.lng,
+                latitude : event.latlng.lat,
+            }
+        )
+    }
+
     render() {
         return (
             <div>
@@ -177,12 +199,17 @@ export class DeviceMaintain extends React.Component{
                     <TextField id="outlined-basic" label="设备识别码" variant="outlined" onChange={this.handleDeviceIdInput} />
                     <TextField id="outlined-basic" label="设备描述" variant="outlined" onChange={this.handleDescInput} />
                     <TextField id="outlined-basic" label="分组" variant="outlined" onChange={this.handleGroupInput} />
-                    <TextField id="outlined-basic2" label="安装位置" variant="outlined" onChange={this.handleAddressInput} />
+                    <TextField id="ac" label="安装位置" variant="outlined" onChange={this.handleAddressInput} />
+                    <AutoComplete input="ac" onSearchComplete={this.handleBaiduAutoComplete} onConfirm={this.handleBaiduAutoComplete} />
                     <Button size="medium" variant="contained" onClick={this.handleAddDevice}>新增</Button>
                 </div>
 
                 <div>
                     <DeviceMaintainTable handleDelete={this.handleDelete} rows={this.state.allDevice} />
+                </div>
+
+                <div>
+                    <MyMap mcuId="1" desc={this.state.longitude + " " + this.state.latitude} enableEdit={true} handleUpdatelatlng={this.handleUpdatelatlng} />
                 </div>
 
 
