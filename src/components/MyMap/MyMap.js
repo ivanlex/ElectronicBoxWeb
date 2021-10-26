@@ -7,32 +7,25 @@ export class MyMap extends React.Component
         super(props);
         this.state={
             currentPos : {lng:121.607271,lat:31.214652},
-            enableEdit : this.props.enableEdit,
         }
 
         this.handleMapClick = this.handleMapClick.bind(this);
     }
 
     handleMapClick(event){
-        if(!this.state.enableEdit)
+        if(!this.props.enableEdit)
         {
             return;
         }
 
-        this.setState(
-            {
-                currentPos : event.latlng
-            }
-        );
-
-        this.props.handleUpdatelatlng(this.state.currentPos);
+        this.props.handleUpdatelatlng(event.latlng);
     }
 
     render() {
         return (
-            <Map center={this.state.currentPos}  zoom="11" onClick={this.handleMapClick} >
-                <Marker position={this.state.currentPos} />
-                <InfoWindow position={this.state.currentPos} text={this.props.desc} title={this.props.mcuId}/>
+            <Map center={this.props.centerPos}  zoom="16" onClick={this.handleMapClick} >
+                <Marker position={this.props.centerPos} />
+                <InfoWindow position={this.props.centerPos} text={this.props.desc} title={this.props.mcuId}/>
             </Map>
         );
     }

@@ -3,6 +3,8 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogT
 import {DeviceMaintainTable} from "../DeviceMaintainTable/DeviceMaintainTable";
 import {MyMap} from "../MyMap/MyMap";
 import AutoComplete from 'react-bmapgl/Services/AutoComplete'
+import ExploreIcon from '@mui/icons-material/Explore';
+import "./DeviceMaintain.css";
 
 export class DeviceMaintain extends React.Component{
     constructor(props) {
@@ -17,23 +19,63 @@ export class DeviceMaintain extends React.Component{
             latitude : 0,
             allDevice:[],
             errorTitle:"",
-            errorContent:""
+            errorContent:"",
+            mapEnableEdit:false,
+            mapCenterPos : {lng:0,lat:0},
+            showAddUpdateDialog:false,
+            modifyMode:false,
         };
 
         this.handleDeviceIdInput = this.handleDeviceIdInput.bind(this);
         this.handleAddressInput = this.handleAddressInput.bind(this);
         this.handleDescInput = this.handleDescInput.bind(this);
         this.handleGroupInput = this.handleGroupInput.bind(this);
-        this.handleAddDevice = this.handleAddDevice.bind(this);
+        this.handleAddUpdateDevice = this.handleAddUpdateDevice.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+        this.handleUpdateDevice = this.handleUpdateDevice.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleUpdatelatlng = this.handleUpdatelatlng.bind(this);
         this.handleBaiduAutoComplete = this.handleBaiduAutoComplete.bind(this);
+        this.handleShowAddDialog = this.handleShowAddDialog.bind(this);
+        this.handleShowOnMap = this.handleShowOnMap.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount() {
         this.handleRefresh();
+    }
+
+    handleUpdate(row)
+    {
+        this.setState(
+            {
+                modifyMode : true,
+                deviceId : row.mcuId,
+                deviceAddress : row.address,
+                desc : row.desc,
+                group : row.group,
+                longitude : row.longitude,
+                latitude : row.latitude,
+                mapEnableEdit : true,
+                showAddUpdateDialog : true,
+                mapCenterPos : {lng:row.longitude,lat:row.latitude},
+        })
+    }
+
+    handleShowOnMap(longitude,latitude){
+        this.setState({
+            mapCenterPos : {lng:longitude,lat:latitude},
+        })
+    }
+
+    handleShowAddDialog(){
+        this.setState({
+            showAddUpdateDialog : true,
+            mapEnableEdit : true,
+            modifyMode : false,
+        })
     }
 
     handleRefresh(){
@@ -60,18 +102,34 @@ export class DeviceMaintain extends React.Component{
             .catch(data => console.log("failed"));
     }
 
-    handleAddDevice(){
+    handleUpdateDevice(){
+        this.addOrUpdateDevice(false);
+    }
+
+    handleCancel(){
+        this.setState(
+            {
+                showAddUpdateDialog : false,
+                mapEnableEdit : false,
+            }
+        )
+    }
+
+    handleAddUpdateDevice(){
         if(this.state.deviceId === "" || this.state.deviceAddress === "")
         {
             this.setState({
-                openDialog : true
+                openDialog : true,
+                errorTitle : "内容检查",
+                errorContent : "请确认填写内容是否完整",
             })
         }
-        else{
+        else
+        {
             const self = this;
             console.log("Add new device deviceId:" + this.state.deviceId + ",deviceAddress:" + this.state.deviceAddress);
 
-            fetch('mcuAdd',
+            fetch(!this.state.modifyMode ? 'mcuAdd' : 'mcuUpdate',
                 {
                     method: 'POST',
                     headers: {
@@ -108,7 +166,16 @@ export class DeviceMaintain extends React.Component{
                 )
                 .catch(data => console.log("failed"));
         }
+
+        this.setState(
+            {
+                showAddUpdateDialog : false,
+                mapEnableEdit : false,
+            }
+        )
     }
+
+
 
     handleDeviceIdInput(event){
         this.setState({
@@ -142,7 +209,11 @@ export class DeviceMaintain extends React.Component{
     }
 
     handleUpdatelatlng(latlng){
-        console.log(latlng);
+        this.setState({
+            mapCenterPos:latlng,
+            longitude:latlng.lng,
+            latitude:latlng.lat,
+        })
     }
 
     handleDelete(mcuId){
@@ -182,46 +253,47 @@ export class DeviceMaintain extends React.Component{
             .catch(data => console.log("failed"));
     }
 
-    handleBaiduAutoComplete(event){
+    handleBaiduAutoComplete(){
         const BMapGL = window.BMapGL;
         const myGeo = new BMapGL.Geocoder();
+        const self = this;
         myGeo.getPoint(this.state.deviceAddress,function (point)
         {
            if(point)
            {
                console.log(point);
+               self.setState({
+                   mapCenterPos : point,
+                   longitude : point.lng,
+                   latitude : point.lat,
+               });
            }else
            {
                console.log('解析失败');
            }
         });
-        // console.log(event);
-        // this.setState(
-        //     {
-        //         longitude : event.latlng.lng,
-        //         latitude : event.latlng.lat,
-        //     }
-        // )
     }
 
     render() {
         return (
             <div>
-                <div className="queryLine">
-                    <TextField id="outlined-basic" label="设备识别码" variant="outlined" onChange={this.handleDeviceIdInput} />
-                    <TextField id="outlined-basic" label="设备描述" variant="outlined" onChange={this.handleDescInput} />
-                    <TextField id="outlined-basic" label="分组" variant="outlined" onChange={this.handleGroupInput} />
-                    <TextField id="ac" label="安装位置" variant="outlined" onChange={this.handleAddressInput} />
-                    <AutoComplete input="ac" onSearchComplete={this.handleBaiduAutoComplete} onConfirm={this.handleBaiduAutoComplete} />
-                    <Button size="medium" variant="contained" onClick={this.handleAddDevice}>新增</Button>
+                <div className={this.state.showAddUpdateDialog ? "hidden" : ""}>
+                    <DeviceMaintainTable handleUpdate={this.handleUpdate} handleShowOnMap={this.handleShowOnMap} handleDelete={this.handleDelete} handleShowAddDialog={this.handleShowAddDialog} rows={this.state.allDevice} />
+                </div>
+
+                <div className={this.state.showAddUpdateDialog ? "" : "hidden"}>
+                    <TextField disabled={this.state.modifyMode} value={this.state.deviceId} id="outlined-basic" label="设备识别码" variant="outlined" onChange={this.handleDeviceIdInput} />
+                    <TextField value={this.state.desc} id="outlined-basic" label="设备描述" variant="outlined" onChange={this.handleDescInput} />
+                    <TextField value={this.state.group} id="outlined-basic" label="分组" variant="outlined" onChange={this.handleGroupInput} />
+                    <TextField value={this.state.deviceAddress} id="ac" label="安装位置" variant="outlined" onChange={this.handleAddressInput} />
+                    <Button onClick={this.handleBaiduAutoComplete}><ExploreIcon /></Button>
+                    <AutoComplete input="ac"/>
+                    <Button  size="medium" variant="contained" onClick={this.handleAddUpdateDevice}>确认</Button>
+                    <Button  size="medium" variant="contained" onClick={this.handleCancel}>取消</Button>
                 </div>
 
                 <div>
-                    <DeviceMaintainTable handleDelete={this.handleDelete} rows={this.state.allDevice} />
-                </div>
-
-                <div>
-                    <MyMap mcuId="1" desc={this.state.longitude + " " + this.state.latitude} enableEdit={true} handleUpdatelatlng={this.handleUpdatelatlng} />
+                    <MyMap centerPos={this.state.mapCenterPos} mcuId={this.state.deviceId} desc={this.state.desc} enableEdit={this.state.mapEnableEdit} handleUpdatelatlng={this.handleUpdatelatlng} />
                 </div>
 
 

@@ -59,12 +59,14 @@ export class DeviceMaintainTable extends React.Component{
                                     <StyledTableCell align="center">分组&nbsp;</StyledTableCell>
                                     <StyledTableCell align="center">安装地址&nbsp;</StyledTableCell>
                                     <StyledTableCell align="center">添加日期&nbsp;</StyledTableCell>
-                                    <StyledTableCell align="right"/>
+                                    <StyledTableCell align="right">
+                                        <Button size="medium" variant="contained" onClick={this.props.handleShowAddDialog}>新增</Button>
+                                    </StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {this.props.rows.map((row) => (
-                                    <StyledTableRow key={row.mcuId}>
+                                    <StyledTableRow key={row.mcuId} onClick={() => this.props.handleShowOnMap(row.longitude,row.latitude)}>
                                         <StyledTableCell component="th" scope="row">
                                             {row.mcuId}
                                         </StyledTableCell>
@@ -73,6 +75,7 @@ export class DeviceMaintainTable extends React.Component{
                                         <StyledTableCell align="center">{row.address}</StyledTableCell>
                                         <StyledTableCell align="center">{this.getTime(row.installDate)}</StyledTableCell>
                                         <StyledTableCell align="right">
+                                            <Button size="small" variant="contained" onClick={() => this.props.handleUpdate(row)} startIcon={<HighlightOffIcon />}>修改</Button>
                                             <Button size="small" variant="contained" onClick={() => this.props.handleDelete(row.mcuId)} startIcon={<HighlightOffIcon />}>删除</Button>
                                         </StyledTableCell>
                                     </StyledTableRow>
