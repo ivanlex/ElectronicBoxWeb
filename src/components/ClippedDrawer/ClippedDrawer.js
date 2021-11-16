@@ -126,7 +126,6 @@ export default function ClippedDrawer({setToken}) {
                         <Route path="/userMaintain" component={UserMaintain} />
                         <Route path="*" component={Dashboard} />
                     </Switch>
-
             </Box>
         </Box>
         </BrowserRouter>
