@@ -30,6 +30,7 @@ import {DeviceMaintain} from "../DeviceMaintain/DeviceMaintain";
 import "./ClippedDrawer.css"
 import Login from "../Login/Login";
 import UserMaintain from "../UserMaintain/UserMaintain";
+import {useEffect} from "react";
 
 
 
@@ -103,6 +104,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function ClippedDrawer({setToken}) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [dateNow, setDateNow] = React.useState('');
+    const [timeNow, setTimeNow] = React.useState('');
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -115,6 +118,26 @@ export default function ClippedDrawer({setToken}) {
     const handleQuit = () =>{
         setToken("");
     }
+
+    useEffect(()=>{
+        const currentDate = new Date();
+        const daysTranslate = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
+
+
+        let updateTimer = setInterval(()=>{
+            setDateNow(currentDate.toLocaleDateString() + ' ' + daysTranslate[currentDate.getDay()]);
+            setTimeNow(currentDate.toLocaleTimeString("cn-zh",
+            //     {
+            //     hour: "2-digit",
+            //     minute: "2-digit",
+            // }
+            ));
+        },1000);
+
+        return ()=>{
+            clearInterval(updateTimer);
+        }
+    });
 
     return (
         <BrowserRouter>
@@ -135,8 +158,15 @@ export default function ClippedDrawer({setToken}) {
                         >
                             <MenuIcon />
                         </IconButton>
+                        <Typography variant="h6" noWrap component="div" sx={{color:'#0091EA'}}>
+                            Company Info
+                        </Typography>
                         <Typography variant="h6" noWrap component="div" sx={{flexGrow:'1',textAlign:'center',color:'#0091EA'}}>
                             防雷箱监测控制系统
+                        </Typography>
+                        <Typography variant="h6" noWrap component="div" sx={{textAlign:'right',color:'#0091EA'}}>
+                            <p style={{'margin':'0px'}}>{timeNow}</p>
+                            <p style={{'margin':'0px'}}>{dateNow}</p>
                         </Typography>
                     </Toolbar>
                 </AppBar>
