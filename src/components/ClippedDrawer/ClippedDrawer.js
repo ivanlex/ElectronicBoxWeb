@@ -1,14 +1,16 @@
 import * as React from 'react';
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import { styled, useTheme } from '@mui/material/styles';
+import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import {ListItem, ListItemIcon} from "@mui/material";
+import {IconButton, ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import MuiAppBar from '@mui/material/AppBar';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -16,6 +18,8 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import RouterIcon from '@mui/icons-material/Router';
 import HistoryIcon from '@mui/icons-material/History';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import Dashboard from "../Dashboard/Dashboard";
 import {Preferences} from "../Preferences/Preferences";
@@ -28,94 +32,181 @@ import Login from "../Login/Login";
 import UserMaintain from "../UserMaintain/UserMaintain";
 
 
+
 const drawerWidth = 240;
 
+const openedMixin = (theme) => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(9)} + 1px)`,
+    },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        ...(open && {
+            ...openedMixin(theme),
+            '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+            ...closedMixin(theme),
+            '& .MuiDrawer-paper': closedMixin(theme),
+        }),
+    }),
+);
+
 export default function ClippedDrawer({setToken}) {
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
     const handleQuit = () =>{
         setToken("");
     }
 
-
     return (
         <BrowserRouter>
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-                <Toolbar>
-                    <Typography variant="h6" noWrap component="div">
-                        防雷箱监测控制系统
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-                }}
-            >
-                <Toolbar />
-                <Box sx={{ overflow: 'auto' }}>
+            <Box sx={{ display: 'flex'}} >
+                <CssBaseline />
+                <AppBar position="fixed" open={open} sx={{backgroundColor:"#424242"}}>
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                color:'red',
+                                marginRight: '36px',
+                                ...(open && { display: 'none' }),
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" noWrap component="div" sx={{flexGrow:'1',textAlign:'center',color:'#0091EA'}}>
+                            防雷箱监测控制系统
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open}  PaperProps={{
+                    sx: {
+                        backgroundColor: "#212121"
+                    }
+                }}>
+                    <DrawerHeader sx={{background:"#424242"}}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon color='primary' /> : <ChevronLeftIcon   color='error'/>}
+                        </IconButton>
+                    </DrawerHeader>
+                    <Divider  />
                     <List className="drawList">
                         <Link to="/dashboard">
-                            <ListItem button key="dashboard">
+                            <ListItem>
                                 <ListItemIcon>
-                                    <AdminPanelSettingsIcon />
+                                    <AdminPanelSettingsIcon sx={{color:'#00E676'}} />
                                 </ListItemIcon>
-                                主面板
+                                <ListItemText primary="主面板" sx={{color:'#00E676'}} />
                             </ListItem>
                         </Link>
-                    </List>
-                    <Divider />
-                    <List className="drawList">
+
                         <Link to="/deviceStatus">
-                            <ListItem button key="allDeviceStatus">
+                            <ListItem>
                                 <ListItemIcon>
-                                    <RouterIcon />
+                                    <RouterIcon sx={{color:'#E0E0E0'}} />
                                 </ListItemIcon>
-                                设备状态
+                                <ListItemText primary="设备状态" sx={{color:'#E0E0E0'}} />
                             </ListItem>
                         </Link>
-                        <Link to="/deviceHistory">
-                            <ListItem button key="historyDeviceStatus">
+
+                        <Link  to="/deviceHistory">
+                            <ListItem>
                                 <ListItemIcon>
-                                    <HistoryIcon />
+                                    <HistoryIcon sx={{color:'#E0E0E0'}}  />
                                 </ListItemIcon>
-                                历史查询
+                                <ListItemText primary="历史查询" sx={{color:'#E0E0E0'}} />
                             </ListItem>
                         </Link>
-                    </List>
-                    <Divider />
-                    <List className="drawList">
-                        <Link  to="/deviceMaintain">
-                            <ListItem button key="deviceMaintain">
+
+                        <Link to="/deviceMaintain">
+                            <ListItem>
                                 <ListItemIcon>
-                                    <ContactMailIcon />
+                                    <ContactMailIcon  sx={{color:'#E0E0E0'}} />
                                 </ListItemIcon>
-                                设备管理
+                                <ListItemText primary="设备管理"  sx={{color:'#E0E0E0'}}  />
                             </ListItem>
                         </Link>
+
                         <Link  to="/userMaintain">
-                            <ListItem button key="userMaintain">
+                            <ListItem>
                                 <ListItemIcon>
-                                    <AccessibilityIcon />
+                                    <AccessibilityIcon sx={{color:'#E0E0E0'}} />
                                 </ListItemIcon>
-                                用户管理
+                                <ListItemText primary="用户管理"  sx={{color:'#E0E0E0'}} />
                             </ListItem>
                         </Link>
-                        <ListItem button key="logout" onClick={handleQuit}>
-                            <Link  to="/quit">
+
+                        <ListItem onClick={handleQuit}>
                                 <ListItemIcon>
-                                    <LogoutIcon />
+                                    <LogoutIcon sx={{color:'#ee6002'}} />
                                 </ListItemIcon>
-                                退出
-                            </Link>
+                                <ListItemText primary="退出" sx={{color:'#ee6002'}} />
                         </ListItem>
+
                     </List>
-                </Box>
-            </Drawer>
-            <Box className="contentPlaceHolder" component="main" sx={{ flexGrow: 1, p: 3 }}>
+                </Drawer>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                     <Switch>
                         <Route path="/deviceStatus" component={DeviceStatus} />
                         <Route path="/dashboard" component={Dashboard} />
@@ -126,8 +217,8 @@ export default function ClippedDrawer({setToken}) {
                         <Route path="/userMaintain" component={UserMaintain} />
                         <Route path="*" component={Dashboard} />
                     </Switch>
+                </Box>
             </Box>
-        </Box>
         </BrowserRouter>
     );
 }

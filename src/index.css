@@ -35,3 +35,7 @@ a:active {
   background-color: transparent;
   text-decoration: none;
 }
+
+html{
+  background: #212121;
+}
