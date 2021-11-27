@@ -83,7 +83,7 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const Drawer = styled(ClippedDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         width: drawerWidth,
         flexShrink: 0,
@@ -118,9 +118,9 @@ export default function ClippedDrawer({setToken}) {
 
     return (
         <BrowserRouter>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex'}} >
                 <CssBaseline />
-                <AppBar position="fixed" open={open}>
+                <AppBar position="fixed" open={open} sx={{backgroundColor:"#424242"}}>
                     <Toolbar>
                         <IconButton
                             color="inherit"
@@ -128,79 +128,81 @@ export default function ClippedDrawer({setToken}) {
                             onClick={handleDrawerOpen}
                             edge="start"
                             sx={{
+                                color:'red',
                                 marginRight: '36px',
                                 ...(open && { display: 'none' }),
                             }}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" noWrap component="div">
+                        <Typography variant="h6" noWrap component="div" sx={{flexGrow:'1',textAlign:'center',color:'#0091EA'}}>
                             防雷箱监测控制系统
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open}>
-                    <DrawerHeader>
+                <Drawer variant="permanent" open={open}  PaperProps={{
+                    sx: {
+                        backgroundColor: "#212121"
+                    }
+                }}>
+                    <DrawerHeader sx={{background:"#424242"}}>
                         <IconButton onClick={handleDrawerClose}>
-                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                            {theme.direction === 'rtl' ? <ChevronRightIcon color='primary' /> : <ChevronLeftIcon   color='error'/>}
                         </IconButton>
                     </DrawerHeader>
-                    <Divider />
+                    <Divider  />
                     <List className="drawList">
                         <Link to="/dashboard">
                             <ListItem>
                                 <ListItemIcon>
-                                    <AdminPanelSettingsIcon />
+                                    <AdminPanelSettingsIcon sx={{color:'#00E676'}} />
                                 </ListItemIcon>
-                                <ListItemText primary="主面板" />
+                                <ListItemText primary="主面板" sx={{color:'#00E676'}} />
                             </ListItem>
                         </Link>
 
                         <Link to="/deviceStatus">
                             <ListItem>
                                 <ListItemIcon>
-                                    <RouterIcon />
+                                    <RouterIcon sx={{color:'#E0E0E0'}} />
                                 </ListItemIcon>
-                                <ListItemText primary="设备状态" />
+                                <ListItemText primary="设备状态" sx={{color:'#E0E0E0'}} />
                             </ListItem>
                         </Link>
 
                         <Link  to="/deviceHistory">
                             <ListItem>
                                 <ListItemIcon>
-                                    <HistoryIcon />
+                                    <HistoryIcon sx={{color:'#E0E0E0'}}  />
                                 </ListItemIcon>
-                                <ListItemText primary="历史查询" />
+                                <ListItemText primary="历史查询" sx={{color:'#E0E0E0'}} />
                             </ListItem>
                         </Link>
 
                         <Link to="/deviceMaintain">
                             <ListItem>
                                 <ListItemIcon>
-                                    <ContactMailIcon />
+                                    <ContactMailIcon  sx={{color:'#E0E0E0'}} />
                                 </ListItemIcon>
-                                <ListItemText primary="设备管理" />
+                                <ListItemText primary="设备管理"  sx={{color:'#E0E0E0'}}  />
                             </ListItem>
                         </Link>
 
                         <Link  to="/userMaintain">
                             <ListItem>
                                 <ListItemIcon>
-                                    <AccessibilityIcon />
+                                    <AccessibilityIcon sx={{color:'#E0E0E0'}} />
                                 </ListItemIcon>
-                                <ListItemText primary="用户管理" />
+                                <ListItemText primary="用户管理"  sx={{color:'#E0E0E0'}} />
                             </ListItem>
                         </Link>
 
-
-                            <ListItem onClick={handleQuit}>
-                                <Link to="/quit">
-                                    <ListItemIcon>
-                                        <LogoutIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="退出" />
-                                </Link>
-                            </ListItem>
+                        <ListItem onClick={handleQuit}>
+                                <ListItemIcon>
+                                    <LogoutIcon sx={{color:'#ee6002'}} />
+                                </ListItemIcon>
+                                <ListItemText primary="退出" sx={{color:'#ee6002'}} />
+                        </ListItem>
 
                     </List>
                 </Drawer>
