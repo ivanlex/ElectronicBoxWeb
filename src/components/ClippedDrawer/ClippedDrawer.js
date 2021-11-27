@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import { styled, useTheme } from '@mui/material/styles';
+import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
@@ -149,45 +150,45 @@ export default function ClippedDrawer({setToken}) {
                         <Link to="/dashboard">
                             <ListItem>
                                 <ListItemIcon>
+                                    <AdminPanelSettingsIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="主面板" />
-                                <AdminPanelSettingsIcon />
                             </ListItem>
                         </Link>
 
                         <Link to="/deviceStatus">
                             <ListItem>
                                 <ListItemIcon>
+                                    <RouterIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="设备状态" />
-                                <AdminPanelSettingsIcon />
                             </ListItem>
                         </Link>
 
                         <Link  to="/deviceHistory">
                             <ListItem>
                                 <ListItemIcon>
+                                    <HistoryIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="历史查询" />
-                                <AdminPanelSettingsIcon />
                             </ListItem>
                         </Link>
 
                         <Link to="/deviceMaintain">
                             <ListItem>
                                 <ListItemIcon>
+                                    <ContactMailIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="设备管理" />
-                                <AdminPanelSettingsIcon />
                             </ListItem>
                         </Link>
 
                         <Link  to="/userMaintain">
                             <ListItem>
                                 <ListItemIcon>
+                                    <AccessibilityIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="用户管理" />
-                                <AdminPanelSettingsIcon />
                             </ListItem>
                         </Link>
 
@@ -198,7 +199,6 @@ export default function ClippedDrawer({setToken}) {
                                         <LogoutIcon />
                                     </ListItemIcon>
                                     <ListItemText primary="退出" />
-                                    <AdminPanelSettingsIcon />
                                 </Link>
                             </ListItem>
 
