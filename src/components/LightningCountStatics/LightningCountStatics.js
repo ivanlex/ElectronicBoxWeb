@@ -1,6 +1,6 @@
 import React, {PureComponent, useState} from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import {Box, FormHelperText, TextField, withStyles} from "@mui/material";
+import {Box, TextField} from "@mui/material";
 
 export default function LightningCountStatics()
 {
@@ -23,6 +23,10 @@ export default function LightningCountStatics()
 
     const handleAddressChanged = (event)=>{
         setSelectedAddress(event.target.value);
+    }
+
+    const handleYearChanged = (event)=>{
+        setSelectYear(event.target.value);
     }
 
     const data = [
@@ -97,7 +101,7 @@ export default function LightningCountStatics()
                                color="warning"
                                value={selectedYear}
                                size="small"
-                               onChange={handleAddressChanged}
+                               onChange={handleYearChanged}
                                focused
                     />
                 </div>
