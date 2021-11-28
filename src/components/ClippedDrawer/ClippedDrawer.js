@@ -121,7 +121,7 @@ export default function ClippedDrawer({setToken}) {
 
     useEffect(()=>{
         const currentDate = new Date();
-        const daysTranslate = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
+        const daysTranslate = ['星期日', '星期一','星期二','星期三','星期四','星期五','星期六'];
 
 
         let updateTimer = setInterval(()=>{
@@ -236,7 +236,7 @@ export default function ClippedDrawer({setToken}) {
 
                     </List>
                 </Drawer>
-                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                <Box component="main" sx={{ flexGrow: 1, p: 3,marginTop:5 }}>
                     <Switch>
                         <Route path="/deviceStatus" component={DeviceStatus} />
                         <Route path="/dashboard" component={Dashboard} />

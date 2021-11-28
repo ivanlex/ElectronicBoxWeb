@@ -7,6 +7,7 @@ import {Grid} from "@mui/material";
 import DashPage from "../DashPage/DashPage";
 import "./DashBoard.css"
 import {DashPanel} from "../DashPanel/DashPanel";
+import LightningCountStatics from "../LightningCountStatics/LightningCountStatics";
 
 export default function Dashboard(){
     const Item = styled(Paper)(({ theme }) => ({
@@ -88,7 +89,8 @@ export default function Dashboard(){
                     <DashPage index={index++} title="离线设备" content={installedDevice - onlineDevice}/>
                 </div>
                 <div>
-                    <DashPanel dashItems={dashItems} />
+                    <LightningCountStatics />
+                    {/*<DashPanel dashItems={dashItems} />*/}
                 </div>
             </div>
 
