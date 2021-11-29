@@ -8,6 +8,9 @@ import DashPage from "../DashPage/DashPage";
 import "./DashBoard.css"
 import {DashPanel} from "../DashPanel/DashPanel";
 import LightningCountStatics from "../LightningCountStatics/LightningCountStatics";
+import DeviceOnlineStatics from "../DeviceOnlineStatics/DeviceOnlineStatics";
+import {Cell, Pie, PieChart} from "recharts";
+import {MyMap} from "../MyMap/MyMap";
 
 export default function Dashboard(){
     const Item = styled(Paper)(({ theme }) => ({
@@ -17,84 +20,22 @@ export default function Dashboard(){
         color: theme.palette.text.secondary,
     }));
 
-    const [installedDevice,setInstalledDevice] = useState(0);
-    const [onlineDevice,setOnlineDevice] = useState(0);
-    const [dashItems,setDashItems] = useState([]);
 
-    const refreshMcuStatics = () => {
-        const self =this;
-
-        fetch('mcuStatics',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/text'
-                },
-                // body: JSON.stringify(credentials)
-            })
-            .then(
-                data=>{
-                    data.json().then(function(result) {
-                        // here you can use the result of promiseB
-                        console.log(result);
-                        setInstalledDevice(result.installedMCU);
-                        setOnlineDevice(result.onlineMCU);
-                    })
-                }
-            )
-            .catch(data => console.log("failed"));
-    };
-
-    const refreshTopMcu = () => {
-        const self =this;
-
-        fetch('mcuTopStatics',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/text'
-                }
-            })
-            .then(
-                data=>{
-                    data.json().then(function(result) {
-                        // here you can use the result of promiseB
-                        console.log(result);
-                        setDashItems(result);
-                    })
-                }
-            )
-            .catch(data => console.log("failed"));
-    };
-
-    useEffect(()=>{
-        const func =  setInterval(function () {
-            refreshMcuStatics();
-            refreshTopMcu();
-        },2000);
-
-
-        return ()=>{
-            clearInterval(func);
-        };
-    })
 
     let index = 0;
 
         return (
-            <div>
-                <div className="dashBoardLine1">
-                    <DashPage index={index++} title="安装设备数量" content={installedDevice}/>
-                    <DashPage index={index++} title="在线设备" content={onlineDevice}/>
-                    <DashPage index={index++} title="离线设备" content={installedDevice - onlineDevice}/>
+                <div style={{'display':'flex','flex-decoration':'row'}}>
+                    <div style={{'display':'flex','flex-decoration':'column'}}>
+                        <div style={{'margin-left':1}}>
+                                <DeviceOnlineStatics />
+                                <LightningCountStatics />
+                        </div>
+                        <div style={{'margin-left':1}}>
+                                {/*<MyMap />*/}
+                        </div>
+
+                    </div>
                 </div>
-                <div>
-                    <LightningCountStatics />
-                    {/*<DashPanel dashItems={dashItems} />*/}
-                </div>
-            </div>
-
-
-
         );
 }
