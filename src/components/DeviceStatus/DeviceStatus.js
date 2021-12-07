@@ -1,6 +1,6 @@
 import React from "react";
 import {Axios} from "axios";
-import {DeviceDataTable} from "../DeviceDataTable/DeviceDataTable";
+import DeviceDataTable from "../DeviceDataTable/DeviceDataTable";
 
 
 export class DeviceStatus extends React.Component{

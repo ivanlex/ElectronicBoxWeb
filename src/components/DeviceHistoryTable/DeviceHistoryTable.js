@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import img_box from "../Resource/img_box.png";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -55,6 +56,7 @@ export class DeviceHistoryTable extends React.Component{
                                 <TableRow>
                                     <StyledTableCell align="left">序号</StyledTableCell>
                                     <StyledTableCell>设备识别码</StyledTableCell>
+                                    <StyledTableCell></StyledTableCell>
                                     <StyledTableCell align="right">空开状态</StyledTableCell>
                                     <StyledTableCell align="right">裂化状态&nbsp;</StyledTableCell>
                                     <StyledTableCell align="right">雷击状态&nbsp;</StyledTableCell>
@@ -70,6 +72,7 @@ export class DeviceHistoryTable extends React.Component{
                                         <StyledTableCell component="th" scope="row">
                                             {row.mcuId}
                                         </StyledTableCell>
+                                        <StyledTableCell><img src={img_box}/></StyledTableCell>
                                         <StyledTableCell align="right">{row.openStatus == 0 ? "合闸" : "分闸"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.crackStatus == 0 ? "正常" : "裂化"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.lightningStatus == 0 ? "正常" : "有雷击"}</StyledTableCell>

@@ -2,6 +2,9 @@ import React from "react";
 import {DeviceHistoryTable} from "../DeviceHistoryTable/DeviceHistoryTable";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 import "./DeviceHistory.css"
+import styled from "@emotion/styled";
+
+const textFieldColor = '#E0E0E0';
 
 export class DeviceHistory extends React.Component{
 
@@ -72,7 +75,7 @@ export class DeviceHistory extends React.Component{
         return (
             <div>
                 <div className="queryLine">
-                    <TextField id="deviceId" value={this.state.queryDeviceId} label="设备识别码" variant="outlined" onChange={this.updateInput}  />
+                    <TextField id="deviceId" color='warning' inputProps={{sx:{color:textFieldColor}}} value={this.state.queryDeviceId} label="设备识别码" variant="outlined" onChange={this.updateInput} focused  />
                     <Button size="medium" variant="contained" onClick={this.handleQuery}>查询</Button>
                 </div>
 
