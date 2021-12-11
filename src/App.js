@@ -7,7 +7,6 @@ import ClippedDrawer from "./components/ClippedDrawer/ClippedDrawer";
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
-
 const appService = {
     socketConnection : "",
     stompClient : {}
@@ -42,12 +41,10 @@ function App() {
         appService.stompClient.subscribe('/topic/heartbeat'+'-user'+appService.socketConnection, function (greeting) {
             console.log(greeting);
             //you can execute any function here
-            appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': '007'}));
+            appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': token}));
         });
-        appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': '007'}));
+        appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': token}));
     });
-
-
 
     return (
         <appContext.Provider value={appService}>
