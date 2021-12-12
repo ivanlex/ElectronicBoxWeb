@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 export default function DeviceOnlineStatics() {
     const width = 650;
     const height = 100;
-    const titleText = '雷击次数统计';
+    const titleText = '联网设备统计';
     const titleColor = '#E1F5FE';
     const backgroundColor = '#424242';
     const column1MarginLeft = 180;

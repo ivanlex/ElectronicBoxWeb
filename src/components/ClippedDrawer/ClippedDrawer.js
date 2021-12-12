@@ -30,7 +30,8 @@ import {DeviceMaintain} from "../DeviceMaintain/DeviceMaintain";
 import "./ClippedDrawer.css"
 import Login from "../Login/Login";
 import UserMaintain from "../UserMaintain/UserMaintain";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
+import {appContext} from "../../App";
 
 
 
@@ -102,6 +103,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function ClippedDrawer({setToken}) {
+    // const appService = useContext(appContext);
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [dateNow, setDateNow] = React.useState('');
@@ -118,6 +120,10 @@ export default function ClippedDrawer({setToken}) {
     const handleQuit = () =>{
         setToken("");
     }
+
+    // appService.stompClient.subscribe(appService.socketConnection,function (msg){
+    //     console.log("alert" + msg);
+    // });
 
     useEffect(()=>{
         const currentDate = new Date();
