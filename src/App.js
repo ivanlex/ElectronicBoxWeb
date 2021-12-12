@@ -9,7 +9,10 @@ import Stomp from 'stompjs';
 
 const appService = {
     socketConnection : "",
-    stompClient : {}
+    stompClient : {},
+    token : "",
+    deviceLocations : [],
+    firstRecord : "",
 }
 
 export const appContext =  createContext(appService);

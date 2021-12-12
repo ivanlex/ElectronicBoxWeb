@@ -1,9 +1,13 @@
 import {Box, TextField} from "@mui/material";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {appContext} from "../../App";
+import addToFormBody from "../Utility/Utility";
 
 
 export default function DeviceOnlineStatics() {
+    const appService = useContext(appContext);
+
     const width = 650;
     const height = 100;
     const titleText = '联网设备统计';
@@ -11,9 +15,10 @@ export default function DeviceOnlineStatics() {
     const backgroundColor = '#424242';
     const column1MarginLeft = 180;
     const column2MarginLeft = 20;
+    const refreshTime = 2000; //ms
 
-    const [installedDevice, setInstalledDevice] = useState(20);
-    const [onlineDevice, setOnlineDevice] = useState(2);
+    const [installedDevice, setInstalledDevice] = useState(0);
+    const [onlineDevice, setOnlineDevice] = useState(0);
     const [dashItems, setDashItems] = useState([]);
 
     const data = [
@@ -40,13 +45,19 @@ export default function DeviceOnlineStatics() {
         const refreshMcuStatics = () => {
             const self = this;
 
+            let formData = {
+                'token': appService.token,
+            };
+
+            let formBody = addToFormBody(formData);
+
             fetch('mcuStatics',
                 {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/text'
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                     },
-                    // body: JSON.stringify(credentials)
+                     body: formBody
                 })
                 .then(
                     data => {
@@ -61,33 +72,32 @@ export default function DeviceOnlineStatics() {
                 .catch(data => console.log("failed"));
         };
 
-        const refreshTopMcu = () => {
-            const self = this;
-
-            fetch('mcuTopStatics',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/text'
-                    }
-                })
-                .then(
-                    data => {
-                        data.json().then(function (result) {
-                            // here you can use the result of promiseB
-                            console.log(result);
-                            setDashItems(result);
-                        })
-                    }
-                )
-                .catch(data => console.log("failed"));
-        };
+       // const refreshTopMcu = () => {
+       //      const self = this;
+       //
+       //      fetch('mcuTopStatics',
+       //          {
+       //              method: 'POST',
+       //              headers: {
+       //                  'Content-Type': 'application/text'
+       //              }
+       //          })
+       //          .then(
+       //              data => {
+       //                  data.json().then(function (result) {
+       //                      // here you can use the result of promiseB
+       //                      console.log(result);
+       //                      setDashItems(result);
+       //                  })
+       //              }
+       //          )
+       //          .catch(data => console.log("failed"));
+       //  };`
 
         useEffect(() => {
             const func = setInterval(function () {
                 refreshMcuStatics();
-                refreshTopMcu();
-            }, 2000);
+            }, refreshTime);
 
 
             return () => {
