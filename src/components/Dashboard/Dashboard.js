@@ -5,6 +5,8 @@ import "./DashBoard.css"
 import LightningCountStatics from "../LightningCountStatics/LightningCountStatics";
 import DeviceOnlineStatics from "../DeviceOnlineStatics/DeviceOnlineStatics";
 import AlertCountStatics from "../AlertCountStatics/AlertCountStatics";
+import {MyMap} from "../MyMap/MyMap";
+import DeviceLocationStatics from "../DeviceLocationStatics/DeviceLocationStatics";
 
 
 export default function Dashboard(){
@@ -14,6 +16,8 @@ export default function Dashboard(){
         textAlign: 'center',
         color: theme.palette.text.secondary,
     }));
+
+
 
 
     let index = 0;
@@ -27,9 +31,8 @@ export default function Dashboard(){
                                 <AlertCountStatics />
                         </div>
                         <div style={{'margin-left':1}}>
-                                {/*<MyMap />*/}
+                                <DeviceLocationStatics />
                         </div>
-
                     </div>
                 </div>
         );

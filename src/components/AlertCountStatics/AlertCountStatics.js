@@ -37,6 +37,14 @@ export default function AlertCountStatics ()
     const [selectedAddress, setSelectedAddress] = useState('ChangShu');
     const [selectedYear, setSelectYear] = useState(currentDate.getFullYear());
 
+    const handleAddressChanged = (event)=>{
+        setSelectedAddress(event.target.value);
+    }
+
+    const handleYearChanged = (event)=>{
+        setSelectYear(event.target.value);
+    }
+
     return (
         <div>
             <Box

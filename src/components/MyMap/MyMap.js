@@ -23,9 +23,19 @@ export class MyMap extends React.Component
 
     render() {
         return (
-            <Map center={this.props.centerPos}  zoom="16" onClick={this.handleMapClick} >
-                <Marker position={this.props.centerPos} />
-                <InfoWindow position={this.props.centerPos} text={this.props.desc} title={this.props.mcuId}/>
+            <Map center={this.props.poses != null ? this.props.poses[0] : this.props.centerPos} style={{height:"100%",width:"100%"}}  zoom="16" onClick={this.handleMapClick} >
+
+                {this.props.poses === null ? (
+                    <Marker position={this.props.centerPos} />) :
+                    this.props.poses.map((pos)=>(
+                                <Marker position={pos} />)
+                    )}
+                {this.props.hideInfoWindow === true ? (
+                    ""
+                ) : (
+                    <InfoWindow position={this.props.centerPos} text={this.props.desc} title={this.props.mcuId}/>
+                )}
+
             </Map>
         );
     }

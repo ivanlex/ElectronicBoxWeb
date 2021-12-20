@@ -18,8 +18,6 @@ const appService = {
 export const appContext =  createContext(appService);
 
 function App() {
-
-
     const { token, setToken } = useToken();
 
     if(!token) {
