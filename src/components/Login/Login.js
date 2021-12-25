@@ -21,6 +21,8 @@ export default function Login({ setToken }) {
     const [password, setPassword] = useState();
     const [openDialog, setOpenDialog] = useState(false);
 
+    const textFieldColor = '#E0E0E0';
+
     const handleSubmit = async e => {
         e.preventDefault();
         const token = await loginUser({
@@ -44,13 +46,13 @@ export default function Login({ setToken }) {
 
     return(
         <div className="login-wrapper">
-            <h1>请输入用户凭证</h1>
+            <h1 style={{"color":textFieldColor}}>请输入用户凭证</h1>
             <form onSubmit={handleSubmit}>
                 <p>
-                    <TextField id="outlined-basic" label="用户名" variant="outlined" onChange={e => setUserName(e.target.value)} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} id="outlined-basic" label="用户名" variant="outlined" onChange={e => setUserName(e.target.value)} />
                 </p>
                 <p>
-                    <TextField id="outlined-basic" label="密码" variant="outlined" onChange={e => setPassword(e.target.value)} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} id="outlined-basic" label="密码" variant="outlined" onChange={e => setPassword(e.target.value)} />
                 </p>
                 <div align="center">
                     <Button type="submit" variant="contained">登录</Button>

@@ -165,7 +165,7 @@ export default function ClippedDrawer({setToken}) {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" noWrap component="div" sx={{color:'#0091EA'}}>
-                            Company Info
+                            苏州安睿源电气有限公司
                         </Typography>
                         <Typography variant="h6" noWrap component="div" sx={{flexGrow:'1',textAlign:'center',color:'#0091EA'}}>
                             防雷箱监测控制系统
