@@ -15,7 +15,7 @@ export default function DeviceOnlineStatics() {
     const backgroundColor = '#424242';
     const column1MarginLeft = 180;
     const column2MarginLeft = 20;
-    const refreshTime = 2000; //ms
+    const refreshTime = 1000; //ms
 
     const [installedDevice, setInstalledDevice] = useState(0);
     const [onlineDevice, setOnlineDevice] = useState(0);
@@ -57,7 +57,7 @@ export default function DeviceOnlineStatics() {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                     },
-                     body: formBody
+                    body: formBody
                 })
                 .then(
                     data => {

@@ -23,9 +23,9 @@ export class MyMap extends React.Component
 
     render() {
         return (
-            <Map center={this.props.poses != null ? this.props.poses[0] : this.props.centerPos} style={{height:"100%",width:"100%"}}  zoom="16" onClick={this.handleMapClick} >
+            <Map center={this.props.poses != undefined ? this.props.poses[0] : this.props.centerPos} style={{height:"100%",width:"100%"}}  zoom="16" onClick={this.handleMapClick} >
 
-                {this.props.poses === null ? (
+                {this.props.poses === undefined ? (
                     <Marker position={this.props.centerPos} />) :
                     this.props.poses.map((pos)=>(
                                 <Marker position={pos} />)

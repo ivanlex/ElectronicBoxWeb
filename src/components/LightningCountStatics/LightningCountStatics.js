@@ -6,6 +6,8 @@ import addToFormBody from "../Utility/Utility";
 
 export default function LightningCountStatics()
 {
+    //const DEMO = true;
+
     const appService = useContext(appContext);
 
     const width = 650;
@@ -26,7 +28,7 @@ export default function LightningCountStatics()
 
     const [selectedAddress, setSelectedAddress] = useState('ChangShu');
     const [selectedYear, setSelectYear] = useState(currentDate.getFullYear());
-    const [staticsData, setStaticsData] = useState([]);
+    //
 
 
     const handleAddressChanged = (event)=>{
@@ -37,86 +39,93 @@ export default function LightningCountStatics()
         setSelectYear(event.target.value);
     }
 
-    // const staticsData = [
-    //     {
-    //         "name": "Page A",
-    //         'LightningCountStatics': 4000,
-    //     },
-    //     {
-    //         "name": "Page B",
-    //         'LightningCountStatics': 3000,
-    //     },
-    //     {
-    //         "name": "Page C",
-    //         'LightningCountStatics': 2000,
-    //     },
-    //     {
-    //         "name": "Page D",
-    //         'LightningCountStatics': 2780,
-    //     },
-    //     {
-    //         "name": "Page E",
-    //         'LightningCountStatics': 1890,
-    //     },
-    //     {
-    //         "name": "Page F",
-    //         'LightningCountStatics': 2390,
-    //     },
-    //     {
-    //         "name": "Page G",
-    //         'LightningCountStatics': 3490,
-    //     }
-    // ]
-
-    const refreshLightningStatics = () => {
-        const self = this;
-
-        let formData = {
-            'token': appService.token,
-            'queryLocation': appService.deviceLocations.count() > 0 ? appService.deviceLocations[0] : "",
-            'queryDate': appService.firstRecord != "" ? appService.firstRecord : new Date(),
-        };
-
-        let formBody = addToFormBody(formData);
-
-        fetch('mcuAlertStatics',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                },
-                body: formBody
-            })
-            .then(
-                data => {
-                    data.json().then(function (result) {
-                        // here you can use the result of promiseB
-                        console.log(result);
-
-                        let staticsInfo = [];
-
-                        for(let data in result){
-                            staticsInfo.push(data);
-                        }
-
-                        setStaticsData(staticsInfo);
-                    })
-                }
-            )
-            .catch(data => console.log("failed"));
-    };
+    const staticsData = [
+        {
+            "name": "一月",
+            'LightningCountStatics': 20,
+        },
+        {
+            "name": "二月",
+            'LightningCountStatics': 10,
+        },
+        {
+            "name": "三月",
+            'LightningCountStatics': 10,
+        },
+        {
+            "name": "四月",
+            'LightningCountStatics': 5,
+        },
+        {
+            "name": "五月",
+            'LightningCountStatics': 10,
+        },
+        {
+            "name": "六月",
+            'LightningCountStatics': 3,
+        }
+    ]
 
 
-    useEffect(() => {
-        const func = setInterval(function () {
-            refreshLightningStatics();
-        }, refreshTime);
 
 
-        return () => {
-            clearInterval(func);
-        };
-    })
+
+
+    // if(!DEMO)
+    // {
+    //     const [staticsData, setStaticsData] = useState([]);
+    //
+    //     const refreshLightningStatics = () => {
+    //         const self = this;
+    //
+    //         let formData = {
+    //             'token': appService.token,
+    //             'queryLocation': appService.deviceLocations.count() > 0 ? appService.deviceLocations[0] : "",
+    //             'queryDate': appService.firstRecord != "" ? appService.firstRecord : new Date(),
+    //         };
+    //
+    //         let formBody = addToFormBody(formData);
+    //
+    //         fetch('mcuAlertStatics',
+    //             {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    //                 },
+    //                 body: formBody
+    //             })
+    //             .then(
+    //                 data => {
+    //                     data.json().then(function (result) {
+    //                         // here you can use the result of promiseB
+    //                         console.log(result);
+    //
+    //                         let staticsInfo = [];
+    //
+    //                         for(let data in result){
+    //                             staticsInfo.push(data);
+    //                         }
+    //
+    //                         setStaticsData(staticsInfo);
+    //                     })
+    //                 }
+    //             )
+    //             .catch(data => console.log("failed"));
+    //     };
+    //
+    //     useEffect(() => {
+    //         const func = setInterval(function () {
+    //             refreshLightningStatics();
+    //         }, refreshTime);
+    //
+    //
+    //         return () => {
+    //             clearInterval(func);
+    //         };
+    //     })
+    // }
+
+
 
     return (
         <div>

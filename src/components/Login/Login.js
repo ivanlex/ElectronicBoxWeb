@@ -49,10 +49,10 @@ export default function Login({ setToken }) {
             <h1 style={{"color":textFieldColor}}>请输入用户凭证</h1>
             <form onSubmit={handleSubmit}>
                 <p>
-                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} id="outlined-basic" label="用户名" variant="outlined" onChange={e => setUserName(e.target.value)} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} id="outlined-basic" label="用户名" variant="outlined" onChange={e => setUserName(e.target.value)} focused />
                 </p>
                 <p>
-                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} id="outlined-basic" label="密码" variant="outlined" onChange={e => setPassword(e.target.value)} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} id="outlined-basic" label="密码" variant="outlined" onChange={e => setPassword(e.target.value)} focused />
                 </p>
                 <div align="center">
                     <Button type="submit" variant="contained">登录</Button>

@@ -6,6 +6,8 @@ import AutoComplete from 'react-bmapgl/Services/AutoComplete'
 import ExploreIcon from '@mui/icons-material/Explore';
 import "./DeviceMaintain.css";
 
+const textFieldColor = '#E0E0E0';
+
 export class DeviceMaintain extends React.Component{
     constructor(props) {
         super(props);
@@ -282,10 +284,10 @@ export class DeviceMaintain extends React.Component{
                 </div>
 
                 <div className={this.state.showAddUpdateDialog ? "" : "hidden"}>
-                    <TextField disabled={this.state.modifyMode} value={this.state.deviceId} id="outlined-basic" label="设备识别码" variant="outlined" onChange={this.handleDeviceIdInput} />
-                    <TextField value={this.state.desc} id="outlined-basic" label="设备描述" variant="outlined" onChange={this.handleDescInput} />
-                    <TextField value={this.state.group} id="outlined-basic" label="分组" variant="outlined" onChange={this.handleGroupInput} />
-                    <TextField value={this.state.deviceAddress} id="ac" label="安装位置" variant="outlined" onChange={this.handleAddressInput} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} value={this.state.deviceId} id="outlined-basic" label="设备识别码" variant="outlined" focused onChange={this.handleDeviceIdInput} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}}  value={this.state.desc} id="outlined-basic" label="设备描述" variant="outlined" focused onChange={this.handleDescInput} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} value={this.state.group} id="outlined-basic" label="分组" variant="outlined" focused onChange={this.handleGroupInput} />
+                    <TextField color='warning' inputProps={{sx:{color:textFieldColor}}} value={this.state.deviceAddress} id="ac" label="安装位置" variant="outlined" focused onChange={this.handleAddressInput} />
                     <Button onClick={this.handleBaiduAutoComplete}><ExploreIcon /></Button>
                     <AutoComplete input="ac"/>
                     <Button  size="medium" variant="contained" onClick={this.handleAddUpdateDevice}>确认</Button>

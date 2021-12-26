@@ -76,7 +76,7 @@ export default function DeviceDataTable({rows}){
                                     <StyledTableCell component="th" scope="row">
                                         {row.mcuId}
                                     </StyledTableCell>
-                                    <StyledTableCell ><img src={img_box}/></StyledTableCell>
+                                    <StyledTableCell ><img width="100px" src={img_box}/></StyledTableCell>
                                     <StyledTableCell align="right">{row.description}</StyledTableCell>
                                     <StyledTableCell align="right"><CircleIcon color={row.isOnline == 1 ? "success" : "error"}/>{row.isOnline == 1 ? "在线" : "离线"}</StyledTableCell>
                                     <StyledTableCell align="right"><CircleIcon color={row.isOnline == 1 && row.openStatus == 0 ? "success" : "error"}/>{row.openStatus == 0 ? "合闸" : "分闸"}</StyledTableCell>

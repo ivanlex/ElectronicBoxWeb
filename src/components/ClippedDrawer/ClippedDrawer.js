@@ -224,14 +224,14 @@ export default function ClippedDrawer({setToken}) {
                             </ListItem>
                         </Link>
 
-                        <Link  to="/userMaintain">
-                            <ListItem>
-                                <ListItemIcon>
-                                    <AccessibilityIcon sx={{color:'#E0E0E0'}} />
-                                </ListItemIcon>
-                                <ListItemText primary="用户管理"  sx={{color:'#E0E0E0'}} />
-                            </ListItem>
-                        </Link>
+                        {/*<Link  to="/userMaintain">*/}
+                        {/*    <ListItem>*/}
+                        {/*        <ListItemIcon>*/}
+                        {/*            <AccessibilityIcon sx={{color:'#E0E0E0'}} />*/}
+                        {/*        </ListItemIcon>*/}
+                        {/*        <ListItemText primary="用户管理"  sx={{color:'#E0E0E0'}} />*/}
+                        {/*    </ListItem>*/}
+                        {/*</Link>*/}
 
                         <ListItem onClick={handleQuit}>
                                 <ListItemIcon>
@@ -250,7 +250,7 @@ export default function ClippedDrawer({setToken}) {
                         <Route path="/deviceHistory/:mcuId" component={DeviceHistory} />
                         <Route path="/deviceHistory" component={DeviceHistory} />
                         <Route path="/deviceMaintain" component={DeviceMaintain}/>
-                        <Route path="/userMaintain" component={UserMaintain} />
+                        {/*<Route path="/userMaintain" component={UserMaintain} />*/}
                         <Route path="*" component={Dashboard} />
                     </Switch>
                 </Box>

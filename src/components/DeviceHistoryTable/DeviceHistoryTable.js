@@ -72,7 +72,7 @@ export class DeviceHistoryTable extends React.Component{
                                         <StyledTableCell component="th" scope="row">
                                             {row.mcuId}
                                         </StyledTableCell>
-                                        <StyledTableCell><img src={img_box}/></StyledTableCell>
+                                        <StyledTableCell><img width="100px" src={img_box}/></StyledTableCell>
                                         <StyledTableCell align="right">{row.openStatus == 0 ? "合闸" : "分闸"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.crackStatus == 0 ? "正常" : "裂化"}</StyledTableCell>
                                         <StyledTableCell align="right">{row.lightningStatus == 0 ? "正常" : "有雷击"}</StyledTableCell>

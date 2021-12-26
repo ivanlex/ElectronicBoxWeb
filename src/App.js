@@ -24,28 +24,28 @@ function App() {
         return <Login setToken={setToken} />
     }
 
-    let sock = new SockJS('/notifications');
-    appService.stompClient = Stomp.over(sock);
-    let sessionId = "";
-
-    sock.onopen = function() {
-        console.log('open');
-    }
-    appService.stompClient.connect({}, function (frame) {
-        let url = appService.stompClient.ws._transport.url;
-        url = url.replace(
-            "ws://127.0.0.1:8000/notifications/",  "");
-        url = url.replace("/websocket", "");
-        url = url.replace(/^[0-9]+\//, "");
-        console.log("Your current session is: " + url);
-        appService.socketConnection = url;
-        appService.stompClient.subscribe('/topic/heartbeat'+'-user'+appService.socketConnection, function (greeting) {
-            console.log(greeting);
-            //you can execute any function here
-            appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': token}));
-        });
-        appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': token}));
-    });
+    // let sock = new SockJS('/notifications');
+    // appService.stompClient = Stomp.over(sock);
+    // let sessionId = "";
+    //
+    // sock.onopen = function() {
+    //     console.log('open');
+    // }
+    // appService.stompClient.connect({}, function (frame) {
+    //     let url = appService.stompClient.ws._transport.url;
+    //     url = url.replace(
+    //         "ws://127.0.0.1:8000/notifications/",  "");
+    //     url = url.replace("/websocket", "");
+    //     url = url.replace(/^[0-9]+\//, "");
+    //     console.log("Your current session is: " + url);
+    //     appService.socketConnection = url;
+    //     appService.stompClient.subscribe('/topic/heartbeat'+'-user'+appService.socketConnection, function (greeting) {
+    //         console.log(greeting);
+    //         //you can execute any function here
+    //         appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': token}));
+    //     });
+    //     appService.stompClient.send("/app/heartbeat", {}, JSON.stringify({'clientId': token}));
+    // });
 
     return (
         <appContext.Provider value={appService}>

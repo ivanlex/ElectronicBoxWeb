@@ -1,4 +1,4 @@
-import React, {PureComponent, useState} from 'react';
+import React, {PureComponent, useEffect, useState} from 'react';
 import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis} from "recharts";
 import {Box, TextField} from "@mui/material";
 
@@ -6,6 +6,8 @@ import {Box, TextField} from "@mui/material";
 
 export default function AlertCountStatics ()
 {
+    const Demo = true;
+
     const width = 650;
     const height = 260;
     const titleText = '报警统计';
@@ -22,15 +24,20 @@ export default function AlertCountStatics ()
     const selectAddressWidth = 150;
     const selectYearWidth = 110;
 
+    const columnMarginLeft = 60;
+
     const lightningAlertTitle = "雷击报警";
     const openAlertTitle = "空开断开报警";
     const crackAlertTitle = "裂化报警";
-    const gourndAlerterTitle = "接地异常报警";
+    const groundAlertTitle = "接地异常报警";
 
     const [lightningAlert, setLightningAlert] = useState();
     const [openAlert, setOpenAlert] = useState();
     const [crackAlert, setCrackAlert] = useState();
     const [groundAlert, setGroundAlert] = useState();
+
+
+
 
     const currentDate = new Date();
 
@@ -44,6 +51,15 @@ export default function AlertCountStatics ()
     const handleYearChanged = (event)=>{
         setSelectYear(event.target.value);
     }
+
+    useEffect(()=>{
+        if(Demo){
+            setLightningAlert(0);
+            setOpenAlert(0);
+            setCrackAlert(0);
+            setGroundAlert(0);
+        }
+    });
 
     return (
         <div>
@@ -64,26 +80,20 @@ export default function AlertCountStatics ()
                 <div style={{"display":"flex","flex-decoration":"row"}}>
                     <h2 style={{'margin-left':'20px','color':titleColor}}>{titleText}</h2>
                 </div>
-
-                <h2 style={{'margin-left':'20px'}}>
-                    <span>{lightningAlertTitle}</span>
-                    <span style={{'color':lightningAlert > 0 ? statusErrorColor : statusNormalColor}}>{lightningAlert}</span>
-                </h2>
-
-                <h2 style={{'margin-left':'20px','color':openAlert > 0 ? statusErrorColor : statusNormalColor}}>
-                    <span >{openAlertTitle}</span>
-                    <span style={{'color':openAlert > 0 ? statusErrorColor : statusNormalColor}}>{openAlert}</span>
-                </h2>
-
-                <h2 style={{'margin-left':'20px','color':crackAlert > 0 ? statusErrorColor : statusNormalColor}}>
-                    <span>{crackAlertTitle}</span>
-                    <span style={{'color':crackAlert > 0 ? statusErrorColor : statusNormalColor}}>{crackAlert}</span>
-                </h2>
-
-                <h2 style={{'margin-left':'20px','color':groundAlert > 0 ? statusErrorColor : statusNormalColor}}>
-                    <span>{gourndAlerterTitle}</span>
-                    <span style={{'color':groundAlert > 0 ? statusErrorColor : statusNormalColor}}>{groundAlert}</span>
-                </h2>
+                <div  style={{'display':'flex','flex-decoration':'column'}}>
+                    <div style={{'margin-left':columnMarginLeft}}>
+                        <h2 style={{'color':titleColor}}>{lightningAlertTitle}</h2>
+                        <h2 style={{'color':titleColor}}>{openAlertTitle}</h2>
+                        <h2 style={{'color':titleColor}}>{crackAlertTitle}</h2>
+                        <h2 style={{'color':titleColor}}>{groundAlertTitle}</h2>
+                    </div>
+                    <div  style={{'margin-left':columnMarginLeft + 60}}>
+                        <h2 style={{'color':lightningAlert > 0 ? statusErrorColor : statusNormalColor}}>{lightningAlert}</h2>
+                        <h2 style={{'color':openAlert > 0 ? statusErrorColor : statusNormalColor}}>{openAlert}</h2>
+                        <h2 style={{'color':crackAlert > 0 ? statusErrorColor : statusNormalColor}}>{crackAlert}</h2>
+                        <h2 style={{'color':groundAlert > 0 ? statusErrorColor : statusNormalColor}}>{groundAlert}</h2>
+                    </div>
+                </div>
 
                 <div style={{"display":"flex","flex-decoration":"row","margin-top":"30px","margin-left":width-selectAddressWidth-10-selectYearWidth-10}}>
                     <TextField select label='设备位置' className="staticsTitleItem" sx={{width:selectAddressWidth,color:titleColor}}
